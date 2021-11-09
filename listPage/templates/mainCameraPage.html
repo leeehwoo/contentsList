@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta charset="UTF-8">
+        <title>Main Camera Scheme</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
+		<script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+        <style>
+            #showQrCode{position:relative;}
+            #qrUl{position:absolute;top:20px;left:120px;}
+            #qrUl li{height:100px;list-style:none;}
+            #showQrCodeDiv{position:absolute;left: 20px;}
+	    </style>
+        <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <h1>SODA/Tianyan QA Helper</h1>
+        <h2>Main Camera Scheme</h2>
+        <h2>Scheme Select</h2>
+        <!-- 선택하는 Camera에 따라 Page 이동 (Page 3개 생성, 추가 Spec은 Page 생성 및 Button 추가하여 이동하는 방식?)
+        <br>
+        Main Camera를 선택하면 go? Scheme / Discover를 선택하면 studio? or eventCamera Scheme / Beauty Recipes를 선택하면 eventWebCaemra? Scheme
+        <br> -->
+      	<button id="mainCamera" onclick="location.href='{% url "main:maincamera_view" %}'">Main Camera</button>
+		<button id="discover" onclick="location.href='{% url "main:discover_view" %}'">Discover</button>
+		<button id="beautyRecipe" onclick="location.href='{% url "main:recipe_view" %}'">Beauty Recipe</button>
+        <h2>App Select</h2>
+        <select name="app" id="appSelect">
+            <option value="soda">SODA REAL</option>
+            <option value="sodab">SODA BETA</option>
+            <option value="tianyan">Tianyan REAL</option>
+            <option value="tianyanb">Tianyan BETA</option>
+        </select>
+        <h2>Style</h2>
+        Style ID : <input type="number" id="mainCameraStyleId">
+        <button id="mainCameraStyleSet">SET</button>
+        <button id="mainCameraStyleUnset">UNSET</button>
+        //
+        <button id="moveMainStyleList" data-toggle="modal" data-target="#exampleModal" onclick="call_style_api()">Style List</button>
+        <!-- <br>
+        Style List를 누르면 현재 App에서 보여지는 Style 전체가 보여지는 List의 새로운 Page로 이동 >> Style List도 새로운 Page 생성? -->
+        <h2>Filter</h2>
+        Filter ID : <input type="number" id="mainCameraFilterId">
+        <button id="mainCameraFilterSet">SET</button>
+        <button id="mainCameraFilterUnset">UNSET</button>
+        //
+        <button id="moveMainFilterList" data-toggle="modal" data-target="#filterModal" onclick="call_filter_api()">Filter List</button>
+        <!-- <h2>Face Shape</h2>
+        <select name="mainCameraFaceShape" id="mainCameraFaceShape">
+            <option value="original">original</option>
+            <option value="natural">natural</option>
+            <option value="baby">baby</option>
+            <option value="slim">slim</option>
+            <option value="beauty">beauty</option>
+            <option value="basic">basic</option>
+            <option value="daily">daily</option>
+        </select>
+        <button id="mainCameraFaceShapeSet">SET</button>
+        <button id="mainCameraFaceShapeUnset">UNSET</button>
+        / Intensity : <input type="number" id="mainCameraFaceShapeIntensity" max="100">
+        <button id="mainCameraFaceShapeIntensitySet">SET</button>
+        <button id="mainCameraFaceShapeIntensityUnset">UNSET</button>
+        <h2>Beauty</h2>
+        <select name="mainCameraBeautyKeyname" id="mainCameraBeauty">
+            <option value="bodyslim">bodyslim</option>
+            <option value="head">head</option>
+            <option value="smooth">smooth</option>
+            <option value="balance">balance</option>
+            <option value="clear">clear</option>
+            <option value="toneup">toneup</option>
+            <option value="enlarge">enlarge</option>
+            <option value="narrow">narrow</option>
+            <option value="wrinkle">wrinkle</option>
+            <option value="cheekbone">cheekbone</option>
+            <option value="slim">slim</option>
+            <option value="short">short</option>
+            <option value="brow">brow</option>
+            <option value="clarity">clarity</option>
+            <option value="eyebag">eyebag</option>
+            <option value="teeth">teeth</option>
+            <option value="lift">lift</option>
+            <option value="chin">chin</option>
+            <option value="jawbone">jawbone</option>
+            <option value="span">span</option>
+            <option value="alar">alar</option>
+            <option value="noselength">noselength</option>
+            <option value="temple">temple</option>
+            <option value="vshape">vshape</option>
+            <option value="position">position</option>
+            <option value="eyesize">eyesize</option>
+            <option value="eyewidth">eyewidth</option>
+            <option value="corner">corner</option>
+            <option value="pupil">pupil</option>
+            <option value="inner">inner</option>
+            <option value="eyelength">eyelength</option>
+            <option value="under">under</option>
+            <option value="eyetail">eyetail</option>
+            <option value="plim">plim</option>
+            <option value="nose">nose</option>
+            <option value="bridge">bridge</option>
+            <option value="radixnasi">radixnasi</option>
+            <option value="tip">tip</option>
+            <option value="mouth">mouth</option>
+            <option value="philtrum">philtrum</option>
+            <option value="lipwidth">lipwidth</option>
+            <option value="upperlip">upperlip</option>
+            <option value="lowerlip">lowerlip</option>
+            <option value="mlip">mlip</option>
+            <option value="smile">smile</option>
+            <option value="thick">thick</option>
+            <option value="eyebrowlift">eyebrowlift</option>
+            <option value="glabella">glabella</option>
+            <option value="eyebrow">eyebrow</option>
+            <option value="shape">shape</option>
+            <option value="front">front</option>
+            <option value="behind">behind</option>
+        </select>
+        / Intensity : <input type="number" id="mainCameraBeautyIntensity" max="100">
+        <button id="mainCameraBeautySet">SET</button>
+        <button id="mainCameraBeautyUnset">UNSET</button> -->
+        <h2>Option</h2>
+        <!-- <select name="schemeOption" id="schemeOption">
+            <option value="autoDownload">Auto DL</option>
+            <option value="manualDownload">Manual DL</option>
+            <option value="frontCamera">Front Camera</option>
+            <option value="backCamera">Back Camera</option>
+        </select>
+        <button id="mainCameraOptionSet">SET</button>
+        <button id="mainCameraOptionUnset">UNSET</button> -->
+        - Download Mode >> 
+        <select name="downloadMode" id="downloadMode">
+            <option value="none" selected disabled>---</option>
+            <option value="true">Auto</option>
+            <option value="false">Manual</option>
+        </select>
+        <!-- <button id="downloadModeSet">SET</button> -->
+        <button id="downloadModeUnset">UNSET</button>
+        <br>
+        <br>
+        - Camera Position >> 
+        <select name="cameraPosition" id="cameraPosition">
+            <option value="none" selected disabled>---</option>
+            <option value="0">Front</option>
+            <option value="1">Back</option>
+        </select>
+        <!-- <button id="cameraPositionSet">SET</button> -->
+        <button id="cameraPositionUnset">UNSET</button>
+        <br>
+        <br>
+        - Beauty Mode >> 
+        <select name="beautyMode" id="beautyMode">
+            <option value="none" selected disabled>---</option>
+            <option value="0">Normal</option>
+            <option value="1">Original</option>
+        </select>
+        <!-- <button id="beautyModeSet">SET</button> -->
+        <button id="beautyModeUnset">UNSET</button>
+        <br>
+        <br>
+        - Take Mode >> 
+        <select name="takeMode" id="takeMode">
+            <option value="none" selected disabled>---</option>
+            <option value="0">Photo</option>
+            <option value="1">Video</option>
+        </select>
+        <!-- <button id="takeModeSet">SET</button> -->
+        <button id="takeModeUnset">UNSET</button>
+        <h2>* Scheme</h2>
+        <input id="mainUrl" readonly style="width: 600px;">
+        <br>
+        <button id="schemeCopy">Scheme Copy</button>
+        <br>
+        <h2>* QR Code</h2>
+        <input type="button" id="addQrcode" value="Show QR Code" onclick="actionAdd()">
+        <input type="reset" id="reset" value="Reset">
+        <br>
+        <br>
+        <div id="showQrCode">
+            <div id="showQrCodeDiv"></div>
+            <ul id="qrUl"><ul>
+        </div>
+
+
+
+  Launch demo modal
+</button>
+<style>
+    .modal-dialog
+    {
+        max-width: 1000px;
+    }
+    .style_group
+    {
+        display: inline-flex;
+        max-width: 900px;
+        overflow-x: scroll;
+    }
+    .style_group img
+    {
+        width: 150px;
+    }
+    .filter_group
+    {
+        display: inline-flex;
+        max-width: 900px;
+        overflow-x: scroll;
+    }
+    .filter_group img
+    {
+        width: 150px;
+    }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body style_list">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body filter_list">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+        <script>
+
+
+            function call_style_api() {
+
+    $.ajax({
+        url: "{% url 'main:api_style' %}",
+        success: function (result) {
+            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
+            console.log(result.result);
+            for (var i = 0; i < result.result.groups.length; i++) {
+                const gid = result.result.groups[i].id;
+                const gname = result.result.groups[i].name;
+
+                let sub_html = ''
+                for (var j = 0; j < result.result.groups[i].styleIds.length; j++) {
+                    for (var k = 0; k < result.result.styles.length; k++) {
+                        if (result.result.groups[i].styleIds[j] === result.result.styles[k].id) {
+                            const style_id = result.result.styles[k].id;
+                            const style_name = result.result.styles[k].name;
+                            const style_thumb = result.result.cdnPrefix + result.result.styles[k].thumbnail;
+                            sub_html += `<div class="style_block"><div class="st_id">${style_id}</div>
+
+                            <img src="${style_thumb}"></img>
+                            <div>${style_name}</div>
+                            </div>`;
+                        }
+                    }
+                }
+                const html = `
+            <div className="contentsListContainer">
+                <div className="categoryNameColumn">
+                    ${gid}, ${gname}
+
+                </div>
+                  <div class="style_group">
+                    ${sub_html}
+                    </div>
+            </div>`
+            $(".style_list").append(html);
+            }
+
+            // click했을 때 active를 준다.
+            // jQuery - selector(선택자) 개념 : p170
+            // 클래스 선택자 : $(".클래스명")
+            // hasClass : 클래스 존재 여부 확인
+            // removeClass : 클래스 삭제
+            $(".style_block").click(function () {
+                /*
+                if ($(this).hasClass('clicked')) {
+                    $(this).removeClass('clicked');
+                    //styleArgs.paras.styleId = ''
+
+                } else {
+
+                    $(".style_block").removeClass('clicked');
+                    $(this).addClass('clicked');
+                    //var a = $(this).find('div')[0];
+                    //styleArgs.paras.styleId = $(a).text()
+                }*/
+                var st_id = $(this).find(".st_id");
+                console.log(st_id.text())
+                $(".modal-close").click();
+
+            });
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
+}
+
+
+function call_filter_api() {
+
+    $.ajax({
+        url: "{% url 'main:api_filter' %}",
+        success: function (result) {
+            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
+            console.log(result.result);
+            for (var i = 0; i < result.result.groups.length; i++) {
+                const gid = result.result.groups[i].id;
+                const gname = result.result.groups[i].name;
+                let sub_html = ''
+                for (var j = 0; j < result.result.groups[i].filterIds.length; j++) {
+                    for (var k = 0; k < result.result.filters.length; k++) {
+                        if (result.result.groups[i].filterIds[j] === result.result.filters[k].id) {
+                            const style_id = result.result.filters[k].id;
+                            const style_name = result.result.filters[k].name;
+                            const style_thumb = result.result.cdnPrefix + result.result.filters[k].thumbnail;
+                            sub_html += `<div class="filter_block"><div class="ft-id">${style_id}</div>
+
+                            <img src="${style_thumb}"></img>
+                            <div>${style_name}</div>
+                            </div>`;
+                        }
+                    }
+                }
+// image thumbnail 가운데 오도록 함,
+// https://wiki.navercorp.com/pages/viewpage.action?pageId=586662251
+// API Category List : 전체 카테고리 리스트를 내려준다.
+//filter.id, filter.name, filter.thumbnail 값을 읽어와서 화면에 출력하면 된다.
+//Thumbnail Url은: result.cdnPrefix + filter.thumbnail 로 사용한다.
+//filter.thumbnail 이 없는 케이스도 있으니 예외 처리가 필요하다.
+
+
+
+
+// console.log(sub_html)
+// 자바스크립트에서 중괄호는 객체를 의미 , $ajax{}도 마찬가지이다.
+// style category를 group으로 나눈다.
+
+// 위에서 j까지 만들어 지고, 여기서부터 더해진다.
+// id, name이 보이게 한다.
+//
+
+
+                const html = `
+            <div className="contentsListContainer">
+                <div className="categoryNameColumn">
+                    ${gid}, ${gname}
+
+                </div>
+                  <div class="filter_group">
+                    ${sub_html}
+                    </div>
+            </div>`
+                $(".filter_list").append(html);
+            }
+
+            // click했을 때 active를 준다.
+            // jQuery - selector(선택자) 개념 : p170
+            // 클래스 선택자 : $(".클래스명")
+            // hasClass : 클래스 존재 여부 확인
+            // removeClass : 클래스 삭제
+            $(".filter_block").click(function () {
+               var ft_id = $(this).find(".ft-id");
+                 console.log(ft_id.text());
+                $(".modal-close").click();
+            });
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
+}
+            const mainCameraAppMain = {
+                mainCameraUrl: '',
+                mainCameraStyle: '',
+                mainCameraFilter: '',
+                mainCameraFaceShape: '',
+                mainCameraFaceShapeIntensity: '',
+                mainCameraBeauty: [],
+                mainAllUrl: '',
+                optionDownload: '',
+                optionCameraPosition: '',
+                optionBeautyMode: '',
+                optionTakeMode:'',
+            }
+
+            $(function () {
+                mainCameraAppMain.mainCameraUrl = $("#appSelect").val() + "://";
+                mainCameraSetUrl();
+
+                $("#appSelect").change(function() {
+                    mainCameraAppMain.mainCameraUrl = $(this).val() + "://";
+                    mainCameraSetUrl();
+                });
+
+                $("#mainCameraStyleSet").click(function() {
+                    var mainStyleId = $("#mainCameraStyleId").val();
+                    if (mainStyleId === '') {
+                        return false;
+                    }
+                    mainCameraAppMain.mainCameraStyle = 'styleId=' + mainStyleId;
+                    mainCameraSetUrl();
+                });
+
+                $("#mainCameraStyleUnset").click(function() {
+                    if(mainCameraAppMain.mainCameraStyle.indexOf("styleId") !== -1) {
+                        mainCameraAppMain.mainCameraStyle = '';
+                        mainCameraSetUrl();
+                    }
+                });
+
+                $("#mainCameraFilterSet").click(function() {
+                    var mainFilterId = $("#mainCameraFilterId").val();
+                    if (mainFilterId === '') {
+                        return false;
+                    }
+                    mainCameraAppMain.mainCameraFilter = 'filterId=' + mainFilterId;
+                    mainCameraSetUrl();
+                });
+
+                $("#mainCameraFilterUnset").click(function() {
+                    if(mainCameraAppMain.mainCameraFilter.indexOf("filterId") !== -1) {
+                        mainCameraAppMain.mainCameraFilter = '';
+                        mainCameraSetUrl();
+                    }
+                });
+
+                // $("#mainCameraBeautySet").click(function() {
+                //     var mainBeautySelect = $("#mainCameraBeauty").val();
+                //     var mainBeautyIntensity = $("#mainCameraBeautyIntensity").val();
+
+                //     if (mainBeautyIntensity === '') {
+                //         return false;
+                //     }
+
+                //     var addKeynameIntensity = mainCameraAppMain.mainCameraBeauty.some(p => p.name === mainBeautySelect);
+                    
+                //     if (addKeynameIntensity) {
+                //         var i = mainCameraAppMain.mainCameraBeauty.findIndex(p => p.name === mainBeautySelect);
+                //         mainCameraAppMain.mainCameraBeauty[i].val = mainBeautyIntensity;
+                //     } else {
+                //         mainCameraAppMain.mainCameraBeauty.push({ 'name' : mainBeautySelect, 'val' : mainBeautyIntensity});
+                //     }
+
+                //     mainCameraSetUrl();
+                // });
+
+                // $("#downloadMode").change(function() {
+                //     var downloadModeOption = $(this).val();
+                //     if (downloadModeOption = "#autoDownload") {
+                //         mainCameraAppMain.optionDownload = 'autoDownload=true';
+                //         mainCameraSetUrl();
+                //     } else if (downloadModeOption = "#manualDownload"){
+                //         mainCameraAppMain.optionDownload = 'autoDownload=false';
+                //         mainCameraSetUrl();
+                //     }
+                // });
+
+                $("#downloadMode").change(function() {
+                    var downloadModeOption = $(this).val();
+                    mainCameraAppMain.optionDownload = 'autoDownload=' + downloadModeOption;
+                    mainCameraSetUrl();
+                });
+
+                $("#downloadModeUnset").click(function() {
+                    mainCameraAppMain.optionDownload = '';
+                    mainCameraSetUrl();
+                });
+
+                $("#cameraPosition").change(function() {
+                    var cameraPositionOption = $(this).val();
+                    mainCameraAppMain.optionCameraPosition = 'cameraPosition=' + cameraPositionOption;
+                    mainCameraSetUrl();
+                });
+
+                $("#cameraPositionUnset").click(function() {
+                    mainCameraAppMain.optionCameraPosition = '';
+                    mainCameraSetUrl();
+                });
+
+                $("#beautyMode").change(function() {
+                    var beautyModeOption = $(this).val();
+                    mainCameraAppMain.optionBeautyMode = 'beautyMode=' + beautyModeOption;
+                    mainCameraSetUrl();
+                });
+                
+                $("#beautyModeUnset").click(function() {
+                    mainCameraAppMain.optionBeautyMode = '';
+                    mainCameraSetUrl();
+                });
+
+                $("#takeMode").change(function() {
+                    var takeModeOption = $(this).val();
+                    mainCameraAppMain.optionTakeMode = 'takemode=' + takeModeOption;
+                    mainCameraSetUrl();
+                });
+
+                $("#takeModeUnset").click(function() {
+                    mainCameraAppMain.optionTakeMode = '';
+                    mainCameraSetUrl();
+                });
+
+                $("#mainUrl").click(function() {
+                    var schemeUrl = $(this).val();
+                    window.open(schemeUrl);
+                });
+            })
+
+            function mainCameraSetUrl() {
+                const mainParam = [mainCameraAppMain.mainCameraStyle, 
+                mainCameraAppMain.mainCameraFilter, mainCameraAppMain.mainCameraFaceShape, 
+                mainCameraAppMain.mainCameraFaceShapeIntensity, mainCameraAppMain.mainCameraBeauty,
+                mainCameraAppMain.optionDownload, mainCameraAppMain.optionCameraPosition,
+                mainCameraAppMain.optionBeautyMode, mainCameraAppMain.optionTakeMode
+            ]
+                console.log(mainParam);
+                var all = mainCameraAppMain.mainCameraUrl + "go";
+                var ck = false;
+                for (var i = 0; i < mainParam.length; i++) {
+                    if (Array.isArray(mainParam[i])) {
+                        for (var j = 0; j < mainParam[i].length; j++) {
+                            if (ck) {
+                                all += '$' + mainParam[i][j].name + '=' + mainParam[i][j].val;
+                            } else {
+                                all += '?' + mainParam[i][j].name + '=' + mainParam[i][j].val;
+                                ck = true;
+                            }
+                        }
+                    } else {
+                        if (mainParam[i] === '') {
+
+                        } else {
+                            if (ck) {
+                                all += '&' + mainParam[i];
+                            } else {
+                                all += '?' + mainParam[i];
+                                ck = true;
+                            }
+                        }
+                    }
+                }
+                $("#mainUrl").val(all);
+                mainCameraAppMain.mainAllUrl = all;
+            }
+
+            //qrcode 보기
+			$("#addQrcode").click(function () {
+				jQuery("#showQrCode #showQrCodeDiv").qrcode({
+					render: "table",
+					width: 100,
+					height: 100,
+					text: $("#mainUrl").val()
+				});
+				// $('#name').html($("#mainUrl").val());
+			})
+
+            function actionAdd(){
+				var textAdd = $("#mainUrl").val(); //입력할 글씨
+				var qrUl = $("#qrUl"); //ul_list선언
+				qrUl.append("<br>"+"<li>"+textAdd+"</li>"); //ul_list안쪽에 li추가
+                var space = $("#showQrCodeDiv");
+                space.append("<br>");
+			}
+
+            //qrcode reset
+			$("#reset").click(function () {
+				$("#showQrCode #showQrCodeDiv").empty();
+				$("#qrUl").empty();
+			})
+
+            //scheme copy
+			jQuery("#schemeCopy").click (
+				function() {
+					var urlInfo = document.getElementById("mainUrl");
+					urlInfo.select();
+					document.execCommand("Copy");
+					alert("Add scheme to clipboard!")
+				}
+			)
+        </script>
+    </body>
+</html>

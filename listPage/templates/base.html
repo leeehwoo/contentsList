@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta charset="UTF-8">
+		<title>Beauty Recipes</title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="jquery.qrcode.js"></script>
+		<script type="text/javascript" src="qrcode.js"></script>
+		<style>
+			#showQrCode{position:relative;}
+			#qrUl{position:absolute;top:20px;left:120px;}
+			#qrUl li{height:100px;list-style:none;}
+            #showQrCodeDiv{position:absolute;left: 20px;}
+		</style>
+	</head>
+
+	<body>
+    {% block title %}
+    {% endblock %}
+    {% block common %}
+    <button id="mainCamera" onclick="location.href='mainCameraPage.html'">Main Camera</button>
+		<button id="discover" onclick="location.href='discoverPage.html'">Discover</button>
+		<button id="beautyRecipe" onclick="location.href='beautyRecipePage.html'">Beauty Recipe</button>
+		<h2>App Select</h2>
+		<select name="app" id="appSelect">
+			<option value="soda">SODA REAL</option>
+			<option value="sodab">SODA BETA</option>
+			<option value="tianyan">Tianyan REAL</option>
+			<option value="tianyanb">Tianyan BETA</option>
+		</select>
+	{% endblock %}
+
+      {% block main %}
+	{% endblock %}
+
+
+	</body>
+</html>

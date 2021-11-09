@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta charset="UTF-8">
+		<title>Beauty Recipes</title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
+		<script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<style>
+            .style_group
+            {
+                display: inline-flex;
+            }
+            .style_group img
+            {
+                height: 150px;
+                width: auto;
+            }
+		</style>
+	</head>
+
+	<body>
+		<div class="content-main">
+
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body style_info">
+            <div id="modal-style-id"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+	</body>
+    <script>
+
+        const style_infos = {
+            main_url:"sodab://go",
+        }
+        const style_json_info = {
+
+        }
+
+    </script>
+<script>
+    $(function (){
+        call_style_api();
+    })
+    function click_style_info(th)
+    {
+        $("#modal-style-id").empty();
+        var s_id = style_infos.main_url + '?' + $(th).find(".style-id").text();
+        var style_json = $(th).find(".style_json").clone()
+        $("#modal-style-id").append(`<div>${s_id}</div>`);
+        $("#modal-style-id").append(style_json);
+    }
+function call_style_api() {
+
+    $.ajax({
+        url: "{% url 'style_filter_list:api_style' %}",
+        success: function (result) {
+            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
+            console.log(result.result);
+            for (var i = 0; i < result.result.groups.length; i++) {
+                const gid = result.result.groups[i].id;
+                const gname = result.result.groups[i].name;
+                let sub_html = ''
+                for (var j = 0; j < result.result.groups[i].styleIds.length; j++) {
+                    for (var k = 0; k < result.result.styles.length; k++) {
+                        if (result.result.groups[i].styleIds[j] === result.result.styles[k].id) {
+                            console.log(result.result.styles[k])
+                            const style_id = result.result.styles[k].id;
+                            const style_name = result.result.styles[k].name;
+                            const style_thumb = result.result.cdnPrefix + result.result.styles[k].thumbnail;
+                            const newmarkEndDate = result.result.styles[k].newmarkEndDate;
+                            const thumbnail = result.result.styles[k].thumbnail;
+                            const thumbnailColor = result.result.styles[k].thumbnailColor;
+                            const updated = result.result.styles[k].updated;
+                            const version = result.result.styles[k].version;
+
+                            style_json_info[style_id] = {"style_id":style_id, "style_name":style_name};
+                            sub_html += `<div class="style_block" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
+
+<img src="${style_thumb}"></img>
+<div>${style_name}</div>
+<div class="hide_view_json" style="display: none">
+    <div class="style_json">
+    <div>style_id : ${style_id}</div>
+    <div>${style_name}</div>
+    <div>${newmarkEndDate}</div>
+    <div>${thumbnailColor}</div>
+
+<div>${updated}</div>
+<div>${version}</div>
+</div>
+
+
+</div>
+</div>`;
+                        }
+                    }
+                }
+// image thumbnail 가운데 오도록 함,
+// https://wiki.navercorp.com/pages/viewpage.action?pageId=586662251
+// API Category List : 전체 카테고리 리스트를 내려준다.
+//filter.id, filter.name, filter.thumbnail 값을 읽어와서 화면에 출력하면 된다.
+//Thumbnail Url은: result.cdnPrefix + filter.thumbnail 로 사용한다.
+//filter.thumbnail 이 없는 케이스도 있으니 예외 처리가 필요하다.
+
+
+
+
+// console.log(sub_html)
+// 자바스크립트에서 중괄호는 객체를 의미 , $ajax{}도 마찬가지이다.
+// style category를 group으로 나눈다.
+
+// 위에서 j까지 만들어 지고, 여기서부터 더해진다.
+// id, name이 보이게 한다.
+//
+
+
+                const html = `
+            <div className="contentsListContainer">
+                <div className="categoryNameColumn">
+                    ${gid}, ${gname}
+
+                </div>
+                  <div class="style_group">
+                    ${sub_html}
+                    </div>
+            </div>`
+                $(".content-main").append(html);
+            }
+
+            // click했을 때 active를 준다.
+            // jQuery - selector(선택자) 개념 : p170
+            // 클래스 선택자 : $(".클래스명")
+            // hasClass : 클래스 존재 여부 확인
+            // removeClass : 클래스 삭제
+            $(".style_block").click(function () {
+                if ($(this).hasClass('clicked')) {
+                    $(this).removeClass('clicked');
+                    //styleArgs.paras.styleId = ''
+
+                } else {
+
+                    $(".style_block").removeClass('clicked');
+                    $(this).addClass('clicked');
+                    var a = $(this).find('div')[0];
+                    //styleArgs.paras.styleId = $(a).text()
+                }
+            });
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
+}
+</script>
+</html>

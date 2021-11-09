@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta charset="UTF-8">
+		<title>Beauty Recipes</title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
+		<script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+		<style>
+			#showQrCode{position:relative;}
+			#qrUl{position:absolute;top:20px;left:120px;}
+			#qrUl li{height:100px;list-style:none;}
+            #showQrCodeDiv{position:absolute;left: 20px;}
+		</style>
+	</head>
+
+	<body>
+		<h1>SODA/Tianyan QA Helper</h1>
+		<h2>Beauty Recipes Scheme</h2>
+		<br>
+		<h2>Scheme Select</h2>
+		<button id="mainCamera" onclick="location.href='{% url "main:maincamera_view" %}'">Main Camera</button>
+		<button id="discover" onclick="location.href='{% url "main:discover_view" %}'">Discover</button>
+		<button id="beautyRecipe" onclick="location.href='{% url "main:recipe_view" %}'">Beauty Recipe</button>
+		<h2>App Select</h2>
+		<select name="app" id="appSelect">
+			<option value="soda">SODA REAL</option>
+			<option value="sodab">SODA BETA</option>
+			<option value="tianyan">Tianyan REAL</option>
+			<option value="tianyanb">Tianyan BETA</option>
+		</select>
+		<h2>Style</h2>
+		Style ID : <input type="number" id="beautyRecipeStyleId">
+		<button id="beautyRecipeStyleIdSet">SET</button>
+		<button id="beautyRecipeStyleIdUnset">UNSET</button>
+		<h2>Filter</h2>
+		Filter ID : <input type="number" id="beautyRecipeFilterId">
+		<button id="beautyRecipeFilterIdSet">SET</button>
+		<button id="beautyRecipeFilterIdUnset">UNSET</button>
+		<h2>Face Shape</h2>
+		<select name="beautyRecipeFaceShape" id="beautyRecipeFaceShape">
+			<option value="original">original</option>
+			<option value="natural">natural</option>
+			<option value="baby">baby</option>
+			<option value="slim">slim</option>
+			<option value="beauty">beauty</option>
+			<option value="basic">basic</option>
+			<option value="daily">daily</option>
+		</select>
+		<button id="beautyRecipeFaceShapeSet">SET</button>
+		<button id="beautyRecipeFaceShapeUnset">UNSET</button>
+		/ Intensity : <input type="number" id="beautyRecipeFaceShapeIntensity" max="100">
+		<button id="beautyRecipeFaceShapeIntensitySet">SET</button>
+		<button id="beautyRecipeFaceShapeIntensityUnset">UNSET</button>
+		<h2>Beauty</h2>
+		<select name="beautyRecipeBeautyKeyname" id="beautyRecipeBeauty">
+			<option value="bodyslim">bodyslim</option>
+			<option value="head">head</option>
+			<option value="smooth">smooth</option>
+			<option value="balance">balance</option>
+			<option value="clear">clear</option>
+			<option value="toneup">toneup</option>
+			<option value="enlarge">enlarge</option>
+			<option value="narrow">narrow</option>
+			<option value="wrinkle">wrinkle</option>
+			<option value="cheekbone">cheekbone</option>
+			<option value="slim">slim</option>
+			<option value="short">short</option>
+			<option value="brow">brow</option>
+			<option value="clarity">clarity</option>
+			<option value="eyebag">eyebag</option>
+			<option value="teeth">teeth</option>
+			<option value="lift">lift</option>
+			<option value="chin">chin</option>
+			<option value="jawbone">jawbone</option>
+			<option value="span">span</option>
+			<option value="alar">alar</option>
+			<option value="noselength">noselength</option>
+			<option value="temple">temple</option>
+			<option value="vshape">vshape</option>
+			<option value="position">position</option>
+			<option value="eyesize">eyesize</option>
+			<option value="eyewidth">eyewidth</option>
+			<option value="corner">corner</option>
+			<option value="pupil">pupil</option>
+			<option value="inner">inner</option>
+			<option value="eyelength">eyelength</option>
+			<option value="under">under</option>
+			<option value="eyetail">eyetail</option>
+			<option value="plim">plim</option>
+			<option value="nose">nose</option>
+			<option value="bridge">bridge</option>
+			<option value="radixnasi">radixnasi</option>
+			<option value="tip">tip</option>
+			<option value="mouth">mouth</option>
+			<option value="philtrum">philtrum</option>
+			<option value="lipwidth">lipwidth</option>
+			<option value="upperlip">upperlip</option>
+			<option value="lowerlip">lowerlip</option>
+			<option value="mlip">mlip</option>
+			<option value="smile">smile</option>
+			<option value="thick">thick</option>
+			<option value="eyebrowlift">eyebrowlift</option>
+			<option value="glabella">glabella</option>
+			<option value="eyebrow">eyebrow</option>
+			<option value="shape">shape</option>
+			<option value="front">front</option>
+			<option value="behind">behind</option>
+		</select>
+		/ Intensity : <input type="number" id="beautyRecipeBeautyIntensity" max="100">
+		<button id="beautyRecipeBeautySet">SET</button>
+		<button id="beautyRecipeBeautyUnset">UNSET</button>
+		<h2>* Scheme</h2>
+		<input id="mainUrl" readonly style="width: 1000px;">
+		<br>
+		<button id="schemeCopy">Scheme Copy</button>
+		<br>
+		<h2>* QR Code</h2>
+		<input type="button" id="addQrcode" value="Show QR Code" onclick="actionAdd()">
+		<input type="button" id="reset" value="Reset">
+		<br>
+		<br>
+		<div id="showQrCode">
+			<div id="showQrCodeDiv"></div>
+			<ul id="qrUl"><ul>
+		</div>
+
+		<script>
+			const appMain = {
+				url: '',
+				style: '',
+				filter: '',
+				faceShape: '',
+				faceShpaeIntensity: '',
+				beauty: [],
+				allUrl: '',
+			}
+
+			$(function () {
+				appMain.url = $("#appSelect").val() + "://";
+
+				setUrl();
+
+				$("#appSelect").change(function() {
+					appMain.url = $(this).val() + "://";
+					setUrl();
+				});
+
+				$("#beautyRecipeStyleIdSet").click(function () {
+					var styleId = $("#beautyRecipeStyleId").val();
+					if (styleId === '') {
+						return false;
+					}
+					appMain.style = 'styleId=' + styleId;
+					setUrl();
+				});
+
+				$("#beautyRecipeStyleIdUnset").click(function () {
+					if(appMain.style.indexOf("styleId") !== -1) {
+						appMain.style = '';
+						setUrl();
+					}
+				});
+
+				$("#beautyRecipeFilterIdSet").click(function () {
+					var filterId = $("#beautyRecipeFilterId").val();
+					if (filterId === '') {
+						return false;
+					}
+					appMain.filter = 'filterId=' + filterId;
+					setUrl();
+				});
+
+				$("#beautyRecipeFilterIdUnset").click(function () {
+					if(appMain.filter.indexOf("filterId") !== -1) {
+						appMain.filter = '';
+						setUrl();
+					}
+				});
+
+				$("#beautyRecipeFaceShape").change(function () {
+					var face = $(this).val();
+					appMain.faceShape = 'faceShape=' + face;
+					setUrl();
+				});
+
+				$("#beautyRecipeFaceShapeSet").click(function () {
+					var face = $("#beautyRecipeFaceShape").val();
+					appMain.faceShape = 'faceShape=' + face;
+					setUrl();
+				});
+
+				$("#beautyRecipeFaceShapeUnset").click(function () {
+					appMain.faceShape = '';
+					setUrl();
+				});
+
+				$("#beautyRecipeFaceShapeIntensitySet").click(function () {
+					var faceIntensity = $("#beautyRecipeFaceShapeIntensity").val();
+					if (faceIntensity === '') {
+						return false;
+					}
+					appMain.faceShpaeIntensity = 'faceShapeIntensity=' + faceIntensity;
+					setUrl();
+				});
+
+				$("#beautyRecipeFaceShapeIntensityUnset").click(function () {
+					appMain.faceShpaeIntensity = '';
+					setUrl();
+				});
+
+				$("#beautyRecipeBeautySet").click(function () {
+					var beautySelect = $("#beautyRecipeBeauty").val();
+					var beautyIntensity = $("#beautyRecipeBeautyIntensity").val();
+
+					if (beautyIntensity === '') {
+						return false;
+					}
+
+					var addKeynameIntensity = appMain.beauty.some(p => p.name === beautySelect);
+
+					if (addKeynameIntensity) {
+						var i = appMain.beauty.findIndex(p => p.name === beautySelect);
+						appMain.beauty[i].val = beautyIntensity;
+					} else {
+						appMain.beauty.push({ 'name' : beautySelect, 'val' : beautyIntensity});
+					}
+
+					setUrl();
+				});
+
+				$("#beautyRecipeBeautyUnset").click(function () {
+					var beautySelect = $("#beautyRecipeBeauty").val();
+					for (var i = 0; i < appMain.beauty.length; i++) {
+						if (appMain.beauty[i].name === beautySelect) {
+							appMain.beauty.splice(i, 1);
+						}
+					}
+					setUrl();
+				});
+
+				$("#mainUrl").click(function () {
+					var url = $(this).val();
+					window.open(url);
+				});
+			})
+
+			function setUrl() {
+				const param = [appMain.style, appMain.filter, appMain.faceShape, appMain.faceShpaeIntensity, appMain.beauty]
+				console.log(param);
+				var all = appMain.url + "eventWebCamera?type=beautyRecipe";
+				for (var i = 0; i < param.length; i++) {
+					if (Array.isArray(param[i])) {
+						for (var j = 0; j < param[i].length; j++) {
+							all += '&' + param[i][j].name + '=' +param[i][j].val;
+						}
+					} else {
+						if (param[i] === '') {
+						} else {
+							all += '&' + param[i];
+						}
+					}
+				}
+				$("#mainUrl").val(all);
+				appMain.allUrl = all;
+			}
+
+			//qrcode 보기
+			$("#addQrcode").click(function () {
+				jQuery("#showQrCode #showQrCodeDiv").qrcode({
+					render: "table",
+					width: 100,
+					height: 100,
+					text: $("#mainUrl").val()
+				});
+				// $('#name').html($("#mainUrl").val());
+			})
+
+			function actionAdd(){
+				var textAdd = $("#mainUrl").val(); //입력할 글씨
+				var qrUl = $("#qrUl"); //ul_list선언
+				qrUl.append("<br>"+"<li>"+textAdd+"</li>"); //ul_list안쪽에 li추가
+                var space = $("#showQrCodeDiv");
+                space.append("<br>");
+			}
+
+			//qrcode reset
+			$("#reset").click(function () {
+				$("#showQrCode #showQrCodeDiv").empty();
+				$("#qrUl").empty();
+			})
+
+			//scheme copy
+			jQuery("#schemeCopy").click (
+				function() {
+					var urlInfo = document.getElementById("mainUrl");
+					urlInfo.select();
+					document.execCommand("Copy");
+					alert("Add scheme to clipboard!")
+				}
+			)
+		</script>
+	</body>
+</html>
