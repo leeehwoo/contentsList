@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta charset="UTF-8">
-		<title>Beauty Recipes</title>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-		<script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
-		<script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta charset="UTF-8">
+      <title>Beauty Recipes</title>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+      <script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
+      <script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<style>
+      <style>
             .style_group
             {
                 display: inline-flex;
@@ -22,11 +23,11 @@
                 height: 150px;
                 width: auto;
             }
-		</style>
-	</head>
+      </style>
+   </head>
 
-	<body>
-		<div class="content-main">
+   <body>
+      <div class="content-main">
 
         </div>
 
@@ -34,13 +35,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Style Information</h5>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body style_info">
             <div id="modal-style-id"></div>
+          <div class="qrcode2"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Close</button>
@@ -50,7 +53,7 @@
 </div>
 
 
-	</body>
+   </body>
     <script>
 
         const style_infos = {
@@ -60,6 +63,7 @@
 
         }
 
+
     </script>
 <script>
     $(function (){
@@ -68,11 +72,23 @@
     function click_style_info(th)
     {
         $("#modal-style-id").empty();
-        var s_id = style_infos.main_url + '?' + $(th).find(".style-id").text();
+        var s_id = style_infos.main_url + '?styleId=' + $(th).find(".style-id").text();
         var style_json = $(th).find(".style_json").clone()
         $("#modal-style-id").append(`<div>${s_id}</div>`);
         $("#modal-style-id").append(style_json);
+
+
+
+$(".qrcode2").qrcode({
+		render: "canvas",
+		width: 100,
+		height: 100,
+		text: (s_id)
+
+		});
+
     }
+	
 function call_style_api() {
 
     $.ajax({
@@ -100,21 +116,17 @@ function call_style_api() {
                             style_json_info[style_id] = {"style_id":style_id, "style_name":style_name};
                             sub_html += `<div class="style_block" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
 
+
 <img src="${style_thumb}"></img>
 <div>${style_name}</div>
 <div class="hide_view_json" style="display: none">
     <div class="style_json">
     <div>style_id : ${style_id}</div>
-    <div>${style_name}</div>
-    <div>${newmarkEndDate}</div>
-    <div>${thumbnailColor}</div>
-
-<div>${updated}</div>
-<div>${version}</div>
+    <div>style_name : ${style_name}</div>
 </div>
 
-
 </div>
+
 </div>`;
                         }
                     }
@@ -142,7 +154,6 @@ function call_style_api() {
             <div className="contentsListContainer">
                 <div className="categoryNameColumn">
                     ${gid}, ${gname}
-
                 </div>
                   <div class="style_group">
                     ${sub_html}
@@ -175,5 +186,8 @@ function call_style_api() {
         }
     })
 }
+
+
 </script>
 </html>
+
