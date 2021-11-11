@@ -31,13 +31,13 @@
 
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Style Information</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close cl" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -46,7 +46,7 @@
           <div class="qrcode2"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary modal-close cl" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -68,6 +68,11 @@
 <script>
     $(function (){
         call_style_api();
+        $(document)
+        .on("click", ".cl" , function (){
+            $("canvas").remove();
+            console.log("wda");
+        })
     })
     function click_style_info(th)
     {
@@ -76,6 +81,8 @@
         var style_json = $(th).find(".style_json").clone()
         $("#modal-style-id").append(`<div>${s_id}</div>`);
         $("#modal-style-id").append(style_json);
+
+
 
 
 
@@ -88,6 +95,7 @@ $(".qrcode2").qrcode({
 		});
 
     }
+
 	
 function call_style_api() {
 
@@ -123,6 +131,7 @@ function call_style_api() {
     <div class="style_json">
     <div>style_id : ${style_id}</div>
     <div>style_name : ${style_name}</div>
+
 </div>
 
 </div>
@@ -167,6 +176,7 @@ function call_style_api() {
             // 클래스 선택자 : $(".클래스명")
             // hasClass : 클래스 존재 여부 확인
             // removeClass : 클래스 삭제
+
             $(".style_block").click(function () {
                 if ($(this).hasClass('clicked')) {
                     $(this).removeClass('clicked');
