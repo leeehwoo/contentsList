@@ -41,3 +41,14 @@ class StyleView(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         return self.render_to_response(context=context)
+
+
+
+class FilterView(TemplateView):
+    template_name = 'mainFilterListPage.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
