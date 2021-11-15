@@ -23,10 +23,36 @@
                 height: 150px;
                 width: auto;
             }
+            .img p {
+                text-align: center;
+                width: 150px;
+                height: 150px;
+                line-height: 150px;
+            }
+            .img img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            }
       </style>
    </head>
 
    <body>
+   <div>
+       <br>
+       <br>
+        - App select >>
+       <br>
+       <br>
+       <select id="select_app_type">
+           <option value="soda_real" selected>soda real</option>
+           <option value="soda_beta">soda beta</option>
+           <option value="tianyan_real">tianyan real</option>
+           <option value="tianyan_beta">tainyan beta</option>
+       </select>
+       <br>
+       <br>
+   </div>
       <div class="content-main">
 
         </div>
@@ -63,7 +89,8 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
     <script>
 <!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
         const style_infos = {
-            main_url:"sodab://go",
+            main_url:"soda://go",
+            app_type:"soda_real",
         }
         const style_json_info = {
 
@@ -73,6 +100,29 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
     </script>
 <script>
     $(function (){
+
+
+        $("#select_app_type").change(function () {
+            style_infos.app_type = $(this).val();
+            if (style_infos.app_type === "soda_real")
+            {
+                style_infos.main_url = "soda://go";
+            }
+            else if (style_infos.app_type === "soda_beta")
+            {
+                style_infos.main_url = "sodab://go";
+            }
+            else if (style_infos.app_type === "tianyan_real")
+            {
+                style_infos.main_url = "tianyan://go";
+            }
+            else if (style_infos.app_type === "tianyan_beta")
+            {
+                style_infos.main_url = "tianyanb://go";
+            }
+            call_style_api();
+        })
+
         call_style_api();
         $(document) // api가 로딩이 되면
         .on("click", ".cl" , function (){
@@ -89,11 +139,17 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
             var aTag = document.createElement("a");
 
            // 다운로드시 이름
-            aTag.download = 'QR.png';
+            aTag.download = 'QR.png'
             // 위에 링크 생성해준걸 등록
-            aTag.href = QR;
+            aTag.href = QR
             // aTag을 클릭하여 다운로드
             aTag.click();
+        })// 키보드 esc 버튼 눌렀을 때 초기
+        .keyup(function (e){
+            if(e.keyCode == 27){
+                $("canvas").remove();
+            }
+            console.log(e.keyCode);
         })
     })
 
@@ -114,7 +170,7 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 // s_id(Line 80)을 qr code로 생성
 $(".qrcode2").qrcode({
         id:"qr",
-		render: "canvas", // Table
+		render: "canvas",
 		width: 100,
 		height: 100,
 		text: (s_id)
@@ -129,8 +185,9 @@ $(".qrcode2").qrcode({
 function call_style_api() {
 
     $.ajax({
-        url: "{% url 'style_filter_list:api_style' %}",
+        url: "{% url 'style_filter_list:api_style' %}?appType=" + style_infos.app_type,
         success: function (result) {
+            $(".content-main").empty();
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
             console.log(result.result); // result라는 객체로 보냈기 때문에 result로 결과가 온다.
             // 처음에 그룹(카테고리)를 뽑고 있다.
@@ -156,7 +213,7 @@ function call_style_api() {
                             style_json_info[style_id] = {"style_id":style_id, "style_name":style_name};
                             // 그러고 나서 계속 이 html부분을 누적을 해 준다.
                             // 이 작업이 끝나면 하나의 group에 있는 모든 styleID들을 다 찾은 것이다.
-                            sub_html += `<div class="style_block" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
+                            sub_html += `<div class="style_block img" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
 
 
 <img src="${style_thumb}"></img>
@@ -173,7 +230,10 @@ function call_style_api() {
 </div>`;
                         }
                     }
+
                 }
+
+
 // image thumbnail 가운데 오도록 함,
 // https://wiki.navercorp.com/pages/viewpage.action?pageId=586662251
 // API Category List : 전체 카테고리 리스트를 내려준다.
