@@ -18,8 +18,19 @@ def call_style_api(request):
         return JsonResponse(response.json())
 
 def call_filter_api(request):
-    response = requests.get("http://soda-api.snow.me/v1/filter/overview")
-    return JsonResponse(response.json())
+    if request.method == "GET":
+        app_type = request.GET.get("appType")
+        if app_type == "soda_real":
+            url = "http://soda-api.snow.me/v1/filter/overview"
+        elif app_type == "soda_beta":
+            url = "https://qa-soda-api.snow.me/v1/filter/overview"
+        elif app_type == "tianyan_real":
+            url = "https://api.tianyancam.com/v1/filter/overview"
+        elif app_type == "tianyan_beta":
+            url = "http://qa-api.tianyancam.com/v1/filter/overview"
+
+        response = requests.get(url)
+        return JsonResponse(response.json())
 
 def call_studio_api(request):
     response = requests.get("http://soda-api.snow.me/v1/template/overview")
