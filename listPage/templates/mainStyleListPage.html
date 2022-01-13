@@ -77,7 +77,7 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
           <div class="qrcode2"></div>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-secondary dl">QR download</button>
+          <button type="button" class="btn btn-secondary dl" id="dl">QR download</button>
         <button type="button" class="btn btn-secondary modal-close cl" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -99,8 +99,8 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 <!--ajax_.py의 call style api -->
     </script>
 <script>
+    var num = '';
     $(function (){
-
 
         $("#select_app_type").change(function () {
             style_infos.app_type = $(this).val();
@@ -130,16 +130,17 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
         })
 
            // 다운로드 버튼 클릭
-        .on("click", ".dl", function (){
+        .on("click", ".dl", function (e){
+
             // canvas 지정
             var can = $("canvas")[0];
             // 이미지 링크 PNG로 생성
             var QR = can.toDataURL('image/png');
             // aTag 생성
             var aTag = document.createElement("a");
-
+            console.log(num);
            // 다운로드시 이름
-            aTag.download = 'QR.png'
+            aTag.download = num+'.png'
             // 위에 링크 생성해준걸 등록
             aTag.href = QR
             // aTag을 클릭하여 다운로드
@@ -163,6 +164,9 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
         var style_json = $(th).find(".style_json").clone()
         $("#modal-style-id").append(`<div>${s_id}</div>`);
         $("#modal-style-id").append(style_json);
+        num = $(th).find('.style-id').text();
+        console.log(num);
+
 
 
 
@@ -170,12 +174,12 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 // s_id(Line 80)을 qr code로 생성
 $(".qrcode2").qrcode({
         id:"qr",
-		render: "canvas",
-		width: 100,
-		height: 100,
-		text: (s_id)
+      render: "canvas",
+      width: 100,
+      height: 100,
+      text: (s_id)
 
-		});
+      });
 
     }
 
@@ -216,18 +220,18 @@ function call_style_api() {
                             sub_html += `<div class="style_block img" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
 
 
-<img src="${style_thumb}"></img>
-<div>${style_name}</div>
-<div class="hide_view_json" style="display: none">
-    <div class="style_json">
-    <div>style_id : ${style_id}</div>
-    <div>style_name : ${style_name}</div>
+                                    <img src="${style_thumb}"></img>
+                                    <div>${style_name}</div>
+                                    <div class="hide_view_json" data-id="${style_id}" style="display: none">
+                                        <div class="style_json">
+                                        <div class="id" data-id="${style_id}">style_id : ${style_id}</div>
+                                        <div>style_name : ${style_name}</div>
 
-</div>
+                                    </div>
 
-</div>
+                                    </div>
 
-</div>`;
+                                    </div>`;
                         }
                     }
 
@@ -294,4 +298,3 @@ function call_style_api() {
 
 </script>
 </html>
-
