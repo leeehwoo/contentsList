@@ -52,3 +52,39 @@ class FilterView(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         return self.render_to_response(context=context)
+
+class View1(TemplateView):
+    template_name = 'mainStyleListPageSodaBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View2(TemplateView):
+    template_name = 'mainStyleListPageSodaReal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View3(TemplateView):
+    template_name = 'mainStyleListPageTianyanBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View4(TemplateView):
+    template_name = 'mainStyleListPageTianyanReal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)

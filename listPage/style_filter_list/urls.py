@@ -11,5 +11,9 @@ urlpatterns = [
     path('maincamera', views.MainCameraView.as_view(), name='maincamera_view'),
     path('discover', views.DiscoverView.as_view(), name='discover_view'),
     path('style', views.StyleView.as_view(), name='style_view'),
-    path('filter', views.FilterView.as_view(), name='filter_view')
+    path('filter', views.FilterView.as_view(), name='filter_view'),
+    path('sodabetastyle', views.View1.as_view(), name='sodabetastyle_view'),
+    path('sodarealstyle', views.View2.as_view(), name='sodarealstyle_view'),
+    path('tianyanbetastyle', views.View3.as_view(), name='tianyanbetastyle_view'),
+    path('tianyanrealstyle', views.View4.as_view(), name='tianyanrealstyle_view'),
     ]
