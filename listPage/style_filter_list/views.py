@@ -88,3 +88,51 @@ class View4(TemplateView):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         return self.render_to_response(context=context)
+
+
+class View5(TemplateView):
+    template_name = 'mainFilterListPageSodaBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View6(TemplateView):
+    template_name = 'mainFilterListPageSodaReal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View7(TemplateView):
+    template_name = 'mainFilterListPageTianyanBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View7(TemplateView):
+    template_name = 'mainFilterListPageTianyanReal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View8(TemplateView):
+    template_name = 'mainFilterListPageTianyanBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
