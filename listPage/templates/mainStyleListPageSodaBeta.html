@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+
 <html lang="en">
    <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -7,8 +7,8 @@
       <meta charset="UTF-8">
       <title>Style List</title>
       <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-      <script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
-      <script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+      <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
+      <script type="text/javascript" src="/static/qrcode.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -70,6 +70,12 @@
                 height: 150px;
                 object-fit: cover;
             }
+
+            .chk .style-id{
+               font-size: 32px;
+                font-weight: bold;
+            }
+
       </style>
    </head>
 
@@ -200,6 +206,7 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 
     function click_style_info(th)
     {
+        console.log($(th));
         $("#modal-style-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
         var s_id = 'sodab://go?styleId=' + $(th).find(".style-id").text();
         var style_json = $(th).find(".style_json").clone()
@@ -230,7 +237,7 @@ $(".qrcode2").qrcode({
 function call_style_api() {
 
     $.ajax({
-        url: "{% url 'style_filter_list:api_style' %}?appType=soda_beta",
+        url: "/ajax/api/style?appType=soda_beta",
         success: function (result) {
             $(".content-main").empty();
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
@@ -258,7 +265,8 @@ function call_style_api() {
                             style_json_info[style_id] = {"style_id":style_id, "style_name":style_name};
                             // 그러고 나서 계속 이 html부분을 누적을 해 준다.
                             // 이 작업이 끝나면 하나의 group에 있는 모든 styleID들을 다 찾은 것이다.
-                            sub_html += `<div class="style_block img" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
+                            //style_id과 style_name추가해서 검색 가능하게 해줌
+                            sub_html += `<div class="style_block img c${style_id} c${style_name}" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
 
 
                                     <img src="${style_thumb}"></img>
@@ -336,6 +344,18 @@ function call_style_api() {
 // 내 그룹이 나오고 > 스타일id들이 쭉 나온다.
 
 
+
+   // 키를 누를때마다 검색을 위한 event
+   $(function(){
+      $(document)
+      .on("keyup"  , function(e){
+         var c = $("#searchInput").val();
+        $(".style_block").removeClass("chk");
+        $(".c"+c).addClass("chk");
+      })
+
+
+   })
 
 </script>
 </html>

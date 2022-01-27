@@ -35,6 +35,7 @@
                 object-fit: cover;
             }
 
+
             .chk .style-id{
                font-size: 32px;
                 font-weight: bold;
@@ -45,14 +46,14 @@
    <body>
    <h1>Style List</h1>
    <div>
+
        <br>
-       <body>
+       <br>
+             <body>
     <!-- body 부분 -->
     스타일 검색 : 테스트
     <input id="searchInput">
 </body>
-       <br>
-       <br>
        <!-- <select id="select_app_type">
            <option value="soda_real" selected>soda real</option>
            <option value="soda_beta">soda beta</option>
@@ -169,7 +170,7 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
     function click_style_info(th)
     {
         $("#modal-style-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
-        var s_id = 'soda://go?styleId=' + $(th).find(".style-id").text();
+        var s_id = 'tianyanb://go?styleId=' + $(th).find(".style-id").text();
         var style_json = $(th).find(".style_json").clone()
         $("#modal-style-id").append(`<div>${s_id}</div>`);
         $("#modal-style-id").append(style_json);
@@ -198,7 +199,7 @@ $(".qrcode2").qrcode({
 function call_style_api() {
 
     $.ajax({
-        url: "{% url 'style_filter_list:api_style' %}?appType=soda_real",
+        url: "{% url 'style_filter_list:api_style' %}?appType=tianyan_beta",
         success: function (result) {
             $(".content-main").empty();
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
