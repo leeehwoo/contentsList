@@ -4,11 +4,41 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    table {
+        width: 70%;
+    }
+    th, td {
+        padding: 15px;
+        border-bottom: 1px solid;
+    }
+</style>
 <body>
- {% for d in banner_data %}
-    <p>{{ d.id }}</p>
- {% endfor %}
+    <div class="container">
+        <table class="banner_id_name">
+            <thead>
+            <tr>
+                <td><B>ID</B></td>
+                <td><B>NAME</B></td>
+                <td><B>TYPE</B></td>
+                <td><B>START DATE</B></td>
+                <td><B>END DATE</B></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for d in banner_data %}
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.type}}</td>
+                <td>{{d.start_display_date}}</td>
+                <td>{{d.end_display_date}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
-</html>:
+</html>
 
 
