@@ -20,5 +20,5 @@ urlpatterns = [
     path('sodarealfilter', views.View6.as_view(), name='sodarealfilter_view'),
     path('tianyanbetafilter', views.View7.as_view(), name='tianyanbetafilter_view'),
     path('tianyanrealfilter', views.View8.as_view(), name='tianyanrealfilter_view'),
-    
+    path('banner', views.View9.as_view(), name='banner_view'),
     ]

@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'listPage.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'soda',
+        'USER': 'soda_beta',
+        'PASSWORD': 'soda_beta',
+        'HOST': 'test-snow-db-ncl.nfra.io',
+        'PORT': '13306',
     }
 }
 

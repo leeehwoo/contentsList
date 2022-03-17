@@ -1,7 +1,11 @@
-from django.shortcuts import render, HttpResponse
+import datetime
 
+from django.shortcuts import render, HttpResponse
+from django.utils import timezone
 # Create your views here.
 from django.views.generic import TemplateView
+from django.db.models import Q
+from style_filter_list.models import Banner
 
 
 class BeautyRecipeView(TemplateView):
@@ -135,4 +139,18 @@ class View8(TemplateView):
         context = self.get_context_data()
         return self.render_to_response(context=context)
 
+class View9(TemplateView):
+    template_name = 'serverContentsList.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        b = self.get_context_data()
+        time_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        #all = Banner.objects.all()
+        a = Banner.objects.filter(end_display_date__gte=time_now, start_display_date__lte=time_now)
+        b["banner_data"] = a
+        # django filter
+        # django jinja2 or template view
+        return self.render_to_response(context=b)
 
