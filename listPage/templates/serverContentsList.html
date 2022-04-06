@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <style>
+    *{margin: 0; padding: 0; box-sizing: border-box;}
+    li , ul {list-style: none;}
     table {
         width: 70%;
     }
@@ -12,6 +14,81 @@
         padding: 15px;
         border-bottom: 1px solid;
     }
+
+    body {position: relative;}
+
+    /* 모달창 */
+    .modal{
+        position: fixed;
+        width: 1200px;
+        height: 300px;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+    /* 모달 헤더 */
+    .modal_header {
+        width: 100%;
+        height: 50px;
+        background-color: #333;
+    }
+
+    /* 모달 닫기 버튼 */
+    .modal .close {
+        color: #fff;
+        font-size: 22px;
+        position: absolute;
+        right: 3%;
+        top: 3%;
+        cursor: pointer;
+    }
+
+    .modal .m_h{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    /* 모달 바디 */
+    .modal .modal_body {
+        padding: 5px;
+    }
+
+    .modal .m_h li {
+        width: 50%;
+        height: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border-bottom: 1px solid #555;
+        color: #333;
+        padding-left: 10px;
+    }
+
+    .modal .m_b{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+
+    }
+
+    .modal .m_b li {
+        width: 50%;
+        height: 40px;
+        line-height: 20px;
+        font-size: 14px;
+        color: #333;
+        padding-left: 10px;
+    }
+
+    .modal_chk {
+        cursor: pointer;
+    }
+
 </style>
 <body>
     <div class="container">
@@ -27,18 +104,87 @@
             </thead>
             <tbody>
             {% for d in banner_data %}
-            <tr>
+            <tr class="modal_chk" data-id="{{d.id}}">
                 <td>{{d.id}}</td>
                 <td>{{d.name}}</td>
                 <td>{{d.type}}</td>
                 <td>{{d.start_display_date}}</td>
                 <td>{{d.end_display_date}}</td>
             </tr>
+            <div class="modal" id="m{{d.id}}">
+                <div class="modal_header">
+                    <div class="close">
+                        <h3>X</h3>
+                    </div>
+                </div>
+                <div class="modal_body">
+                    <ul class="m_h">
+                        <li>link</li>
+                        <li>scheme</li>
+                    </ul>
+                    <ul class="m_b">
+                        <li>{{ d.link }}</li>
+                        <li>{{ d.scheme }}</li>
+                    </ul>
+                    <ul class="m_h">
+                        <li>display time</li>
+                        <li>display duration</li>
+                    </ul>
+                    <ul class="m_b">
+                        <li>{{ d.display_times }}</li>
+                        <li>{{ d.display_duration }}</li>
+                    </ul>
+                </div>
+            </div>
+
             {% endfor %}
             </tbody>
         </table>
+
+    {% for d in sound_data %}
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.style_name}}</td>
+                <td>{{d.sound | safe}}</td>
+
+            </tr>
+            {% endfor %}
+     {% for d in blur_data %}
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.style_name}}</td>
+                <td>{{d.smart_blur}}</td>
+
+            </tr>
+            {% endfor %}
     </div>
+
+    <!-- jquery연결 -->
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+
+
+        function event(){
+
+            $(document)
+            // 모달 열기
+            .on("click", ".modal_chk" , function(){
+                var id = $(this).data("id");
+                $("#m"+id).css("display", "block")
+            })
+
+            // 모달 닫기
+            .on("click", ".close" , function(){
+                $(".modal").css("display", "none")
+            })
+
+
+
+        }
+
+        $(function(){
+            event();
+        })
+    </script>
 </body>
 </html>
-
-
