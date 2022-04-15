@@ -9,7 +9,10 @@ urlpatterns = [
     path('ajax/api/studio', ajax_.call_studio_api, name='api_studio'),
     path('recipe', views.BeautyRecipeView.as_view(), name='recipe_view'),
     path('maincamera', views.MainCameraView.as_view(), name='maincamera_view'),
-    path('discover', views.DiscoverView.as_view(), name='discover_view'),
+    path('sodabetadiscover', views.DiscoverView1.as_view(), name='sodabetadiscover_view'),
+    #path('sodarealdiscover', views.DiscoverView2.as_view(), name='sodarealdiscover_view'),
+    #path('tianyanbetadiscover', views.DiscoverView3.as_view(), name='tianyanbetadiscover_view'),
+    #path('tianyanrealdiscover', views.DiscoverView4.as_view(), name='tianyanrealdiscover_view'),
     path('style', views.StyleView.as_view(), name='style_view'),
     path('sodabetastyle', views.View1.as_view(), name='sodabetastyle_view'),
     path('sodarealstyle', views.View2.as_view(), name='sodarealstyle_view'),
@@ -21,4 +24,5 @@ urlpatterns = [
     path('tianyanbetafilter', views.View7.as_view(), name='tianyanbetafilter_view'),
     path('tianyanrealfilter', views.View8.as_view(), name='tianyanrealfilter_view'),
     path('banner', views.View9.as_view(), name='banner_view'),
+    path('styledb', views.View10.as_view(), name='styledb_view'),
     ]

@@ -5,7 +5,7 @@ from django.utils import timezone
 # Create your views here.
 from django.views.generic import TemplateView
 from django.db.models import Q
-from style_filter_list.models import Banner
+from style_filter_list.models import Banner, Style
 
 
 class BeautyRecipeView(TemplateView):
@@ -28,8 +28,8 @@ class MainCameraView(TemplateView):
         context = self.get_context_data()
         return self.render_to_response(context=context)
 
-class DiscoverView(TemplateView):
-    template_name = 'discoverPage.html'
+class DiscoverView1(TemplateView):
+    template_name = 'discoverPageSodaBeta.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         return context
@@ -147,10 +147,34 @@ class View9(TemplateView):
     def get(self, request, *args, **kwargs):
         b = self.get_context_data()
         time_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        #all = Banner.objects.all()
+        all = Banner.objects.all() #전체조회, 지금 상태에서는 쿼리문 바꾸는 경우
         a = Banner.objects.filter(end_display_date__gte=time_now, start_display_date__lte=time_now)
         b["banner_data"] = a
         # django filter
         # django jinja2 or template view
         return self.render_to_response(context=b)
+
+class View10(TemplateView):
+    template_name = 'serverContentsList.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        time_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        #all = Banner.objects.all() #전체조회, 지금 상태에서는 쿼리문 바꾸는 경우
+        filters = {"sound":True}
+        a = Style.objects.filter(**filters).first()
+        b = Style.objects.filter(smart_blur=True).first()
+        print(a.sound)
+        print(b.smart_blur)
+        context["sound_data"] = [a]
+        context["blur_data"] = [b]
+        # django filter
+        # django jinja2 or template view
+        return self.render_to_response(context=context)
+
+
+
+
 

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta charset="UTF-8">
+      <title>Studio List</title>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+      <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
+      <script type="text/javascript" src="/static/qrcode.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <style>
+
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        li , ul {list-style: none;}
+
+        .menu {display: flex;}
+        .menu li {text-align: center; color: #fff; border-left: 1px solid #f5f5f5; line-height: 50px; width: calc(100% / 8); height: 50px; cursor: pointer; background-color: #333 ;}
+        .menu li:first-child {border: 0;}
+        .list {display: flex; align-items: center; flex-wrap: wrap; padding: 50px 100px; border-bottom: 2px dashed #999;}
+
+        .list li {width: 12%; margin: 0 4%; height: 300px; }
+        .list li > h3 {font-size: 18px; font-weight: bold;}
+        .list li .list_box {background-color: #999; height: 230px; border-radius: 15px; overflow: hidden; cursor: pointer;}
+        .list li .list_box img {width: 100%; height: 80%;}
+        .list li .list_box h3 {text-align: center; height: 20%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; background-color: #333;}
+        .modal h3 {font-size: 12px}
+        .qrcode2 {width: 100px; height: 100px;}
+        .modal-json {padding: 10px; margin-top: 10px; border-top: 1px solid #ccc; font-size: 12px;}
+      </style>
+   </head>
+
+   <body>
+   <!-- <h1>Studio List(SODA BETA)</h1> -->
+   <div>
+       <!-- <br> -->
+<body>
+        <div id="wrap">
+        <ul class="menu">
+           <li>HOT</li>
+           <li>NEW</li>
+           <li>Personal Color</li>
+           <li>💫Glitter💫</li>
+           <li>Mood</li>
+           <li>Retro</li>
+           <li>Cute</li>
+           <li>💄Makeup</li>
+        </ul>
+        <main>
+            <ul class="list">
+                <li class="box box${e.id}">
+                    <h3 class="m_chk" data-toggle="modal" data-target="#exampleModal">${e.id}</h3>
+                    <div class="m_chk list_box" data-toggle="modal" data-target="#exampleModal">
+                        <img src="" alt="">
+                        <h3>${e.title}</h3>
+                    </div>
+                </li>
+            </ul>
+        </main>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">template information</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3>id:</h3>
+              <h3>name:</h3>
+              <h3>scheme:</h3>
+              <div class="qrcode2"></div>
+            </div>
+            <div class="modal-json"></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="dl btn btn-primary">QR download</button>
+              <button type="button" class="json btn btn-primary">json</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+   </body>
+</body>
+
+       <br>
+       <br>
+       <!-- <select id="select_app_type">
+           <option value="soda_real" selected>soda real</option>
+           <option value="soda_beta">soda beta</option>
+           <option value="tianyan_real">tianyan real</option>
+           <option value="tianyan_beta">tainyan beta</option>
+       </select> -->
+       <br>
+       <br>
+   </div>
+      <div class="content-main">
+
+        </div>
+<!-- Bootstrap의 JavaScript 모달 플러그인을 사용하여 팝업창을 만든다.
+https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참고 -->
+
+
+    <script>
+// <!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
+        const studio_infos = {
+            main_url:"sodab://studio?",
+            app_type:"soda_beta",
+        }
+        const studio_json_info = {
+
+        }
+
+// <!--ajax_.py의 call style api -->
+    </script>
+<script>
+    var num = '';
+
+
+
+
+
+// append를 해주는 부분.(jQuery append with api call)
+// 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
+
+function call_studio_api() {
+
+    $.ajax({
+        url: "/ajax/api/studio?appType=soda_beta",
+        success: function (result) {
+            const r = result.result
+            html = '';
+            console.log(r)
+            console.log(r.templates)
+            r.templates.forEach(e => {
+                html += `
+                <li >
+                    <h3>${e.id}</h3>
+                    <div class="list_box">
+                        <img src="${r.cdnPrefix+e.thumbnail}" alt="">
+                        <h3>${e.title}</h3>
+                    </div>
+                </li>
+                `
+            });
+
+            $(".list").html(html);
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
+}
+
+    var num = '';
+    $(function (){
+
+        // $("#select_app_type").change(function () {
+        //     style_infos.app_type = $(this).val();
+        //     if (style_infos.app_type === "soda_real")
+        //     {
+        //         style_infos.main_url = "soda://go";
+        //     }
+        //     else if (style_infos.app_type === "soda_beta")
+        //     {
+        //         style_infos.main_url = "sodab://go";
+        //     }
+        //     else if (style_infos.app_type === "tianyan_real")
+        //     {
+        //         style_infos.main_url = "tianyan://go";
+        //     }
+        //     else if (style_infos.app_type === "tianyan_beta")
+        //     {
+        //         style_infos.main_url = "tianyanb://go";
+        //     }
+        //     call_style_api();
+        // })
+
+        call_studio_api();
+        var num2 = ""
+        // $(".modal").show();
+        $(document) // api가 로딩이 되면
+        .on("click", ".menu li" , function(){
+            const t = $(this).text()
+            $(".box").hide();
+            for (let i = 0; i < arr_cat.length; i++) {
+                if(arr_cat[i].title == t){
+                    console.log(arr_cat[i].templateIds);
+                    arr_cat[i].templateIds.forEach(e => {
+                        $(".box"+e).show();
+                        console.log(".box"+e);
+                    });
+                }
+
+            }
+        })
+        .on("click", ".modal" , function(){
+            // $(".modal").show();
+        })
+        .on("click", ".cl" , function (){
+            $("canvas").remove(); // popup close했을 때 초기화되도록 한다. canvas(큐알코드) 삭제
+        })
+
+           // 다운로드 버튼 클릭
+        .on("click", ".dl", function (e){
+
+            // canvas 지정
+            var can = $("canvas")[0];
+            // 이미지 링크 PNG로 생성
+            var QR = can.toDataURL('image/png');
+            // aTag 생성
+            var aTag = document.createElement("a");
+            console.log(num2);
+           // 다운로드시 이름
+            aTag.download = num2+'.png'
+            // 위에 링크 생성해준걸 등록
+            aTag.href = QR
+            // aTag을 클릭하여 다운로드
+            aTag.click();
+        })// 키보드 esc 버튼 눌렀을 때 초기
+        .keyup(function (e){
+            if(e.keyCode == 27){
+                $("canvas").remove();
+            }
+            console.log(e.keyCode);
+        })
+        .on("click" , ".m_ckh", function(){
+            a = $(this).parent().data("id")
+            aa = arr_tem[a];
+            link = "sodab://studio?templateId="+aa.id;
+            html = `
+                <h3>id:${aa.id}</h3>
+              <h3>name:${aa.name}</h3>
+              <h3>scheme:${link}</h3>
+              <div class="qrcode2"></div>
+            `;
+            $(".modal-body").html(html);
+            $(".modal-json").hide();
+            console.log(aa);
+            html2 =`{
+                <br>
+                &nbsp;contentType: ${aa.contentType}<br>
+                &nbsp;createCount: ${aa.createCount}<br>
+                &nbsp;id: ${aa.id}<br>
+                &nbsp;likeCount: ${aa.likeCount}<br>
+                &nbsp;link: ${aa.link}<br>
+                &nbsp;name: ${aa.name}<br>
+                &nbsp;nickname: ${aa.nickname}<br>
+                &nbsp;thumbnail: ${aa.thumbnail}<br>
+                &nbsp;thumbnailEventCamera: ${aa.thumbnailEventCamera}<br>
+                &nbsp;thumbnailRatio: ${aa.thumbnailRatio}<br>
+                &nbsp;title: ${aa.title}<br>
+                &nbsp;update: ${aa.update}<br>
+                &nbsp;version: ${aa.version}<br>
+                <br>
+            }`;
+            $(".modal-json").html(html2);
+            num2 = aa.id;
+            $(".qrcode2").qrcode({
+                id:"qr",
+                render: "canvas",
+                width: 100,
+                height: 100,
+                text: (link)
+
+            });
+        })
+        .on("click", ".json" , function(){
+            if(!$(".modal-json").hasClass("json-chk")){
+
+                $(".modal-json").show();
+                $(".modal-json").addClass("json-chk")
+            }else {
+                $(".modal-json").hide();
+                $(".modal-json").removeClass("json-chk")
+            }
+        })
+    })
+
+
+
+var arr_cat = [];
+var arr_tem = [];
+// append를 해주는 부분.(jQuery append with api call)
+// 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
+
+function call_studio_api() {
+
+    $.ajax({
+        url: "/ajax/api/studio?appType=soda_beta",
+        success: function (result) {
+            const r = result.result;
+            arr_cat = r.categories;
+            arr_tem = r.templates;
+            html = '';
+            num = 0;
+            r.templates.forEach(e => {
+                html += `
+                <li class="box box${e.id}" data-id="${num}">
+                    <h3 class="m_ckh" data-toggle="modal" data-target="#exampleModal">${e.id}</h3>
+                    <div class="list_box m_ckh" data-toggle="modal" data-target="#exampleModal">
+                        <img src="" alt="">
+                        <h3>${e.title}</h3>
+                    </div>
+                </li>
+                `
+                num+=1
+            });
+
+            $(".list").html(html);
+        },
+        error: function (e) {
+        }
+    })
+}
+
+</script>
