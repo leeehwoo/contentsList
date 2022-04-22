@@ -118,17 +118,15 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 
         }
 
-// <!--ajax_.py의 call style api -->
+
     </script>
 <script>
     var num = '';
 
 
-
-
-
 // append를 해주는 부분.(jQuery append with api call)
-// 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
+// 아래의 부분은 결과 성공 call back 함수인데, request가 완료 되었을 때, 시작하는 부분이다.
+    // <!--ajax_.py의 call studio api -->
 
 function call_studio_api() {
 
@@ -139,12 +137,20 @@ function call_studio_api() {
             html = '';
             console.log(r)
             console.log(r.templates)
+            /**array.forEach(callback(element, index, arr), thisArg)
+             * callback : 실행할 함수. 즉, function(){}
+             * element : 배열의 현재 요소.
+             * index : 요소의 인덱스.
+             * arr : forEach()가 호출한 배열
+             * thisArg : 콜백을 실행할 동안  this로 사용할 값.
+             **/
             r.templates.forEach(e => {
+
                 html += `
                 <li >
                     <h3>${e.id}</h3>
                     <div class="list_box">
-                        <img src="${r.cdnPrefix+e.thumbnail}" alt="">
+                        <img src="${img}" alt="">
                         <h3>${e.title}</h3>
                     </div>
                 </li>
@@ -162,26 +168,6 @@ function call_studio_api() {
     var num = '';
     $(function (){
 
-        // $("#select_app_type").change(function () {
-        //     style_infos.app_type = $(this).val();
-        //     if (style_infos.app_type === "soda_real")
-        //     {
-        //         style_infos.main_url = "soda://go";
-        //     }
-        //     else if (style_infos.app_type === "soda_beta")
-        //     {
-        //         style_infos.main_url = "sodab://go";
-        //     }
-        //     else if (style_infos.app_type === "tianyan_real")
-        //     {
-        //         style_infos.main_url = "tianyan://go";
-        //     }
-        //     else if (style_infos.app_type === "tianyan_beta")
-        //     {
-        //         style_infos.main_url = "tianyanb://go";
-        //     }
-        //     call_style_api();
-        // })
 
         call_studio_api();
         var num2 = ""
@@ -189,7 +175,9 @@ function call_studio_api() {
         $(document) // api가 로딩이 되면
         .on("click", ".menu li" , function(){
             const t = $(this).text()
+            // 목록 전부다 hide
             $(".box").hide();
+            // 메뉴를 클릭하면 이름을 데이터에서 체크하여 해당 데이터를 show()해준다.
             for (let i = 0; i < arr_cat.length; i++) {
                 if(arr_cat[i].title == t){
                     console.log(arr_cat[i].templateIds);
@@ -201,6 +189,7 @@ function call_studio_api() {
 
             }
         })
+            // 모달창 데이터 넣는 부분
         .on("click", ".modal" , function(){
             // $(".modal").show();
         })
@@ -224,13 +213,14 @@ function call_studio_api() {
             aTag.href = QR
             // aTag을 클릭하여 다운로드
             aTag.click();
-        })// 키보드 esc 버튼 눌렀을 때 초기
+        })// 키보드 esc 버튼 눌렀을 때 초기화
         .keyup(function (e){
             if(e.keyCode == 27){
                 $("canvas").remove();
             }
             console.log(e.keyCode);
         })
+            // id를 클릭시 들어있는 값들을 jquery에서 가져올 수 있다.
         .on("click" , ".m_ckh", function(){
             a = $(this).parent().data("id")
             aa = arr_tem[a];
@@ -272,6 +262,8 @@ function call_studio_api() {
 
             });
         })
+            // json내용 보여주는 부분
+
         .on("click", ".json" , function(){
             if(!$(".modal-json").hasClass("json-chk")){
 
@@ -302,11 +294,13 @@ function call_studio_api() {
             html = '';
             num = 0;
             r.templates.forEach(e => {
+                var img = "http://soda-static.snow.me/template/"+e.id+"/"+e.thumbnail;
+                console.log(img);
                 html += `
                 <li class="box box${e.id}" data-id="${num}">
                     <h3 class="m_ckh" data-toggle="modal" data-target="#exampleModal">${e.id}</h3>
                     <div class="list_box m_ckh" data-toggle="modal" data-target="#exampleModal">
-                        <img src="" alt="">
+                        <img src="${img}" alt="">
                         <h3>${e.title}</h3>
                     </div>
                 </li>
