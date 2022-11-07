@@ -83,7 +83,7 @@
    </head>
 
    <body>
-   <h1>Filter List(FoodieCN REAL)</h1>
+   <h1>Filter List(Foodie BETA)</h1>
    <div>
        <br>
 <body>
@@ -128,8 +128,8 @@
     <script>
 <!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
         const filter_infos = {
-            main_url:"foodiecn://go",
-            app_type:"foodiecn_real",
+            main_url:"foodieb://go",
+            app_type:"foodie_beta",
         }
         const filter_json_info = {
 
@@ -180,7 +180,7 @@
     {
         console.log($(th));
         $("#modal-filter-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
-        var s_id = 'foodiecnb://go?filterId=' + $(th).find(".filter-id").text();
+        var s_id = 'foodieb://go?filterId=' + $(th).find(".filter-id").text();
         var filter_json = $(th).find(".filter_json").clone()
         $("#modal-filter-id").append(`<div>${s_id}</div>`);
         $("#modal-filter-id").append(filter_json);
@@ -207,7 +207,7 @@ $(".qrcode2").qrcode({
 function call_filter_api() {
 
     $.ajax({
-        url: "/ajax/api/filter?appType=foodiecn_beta",
+        url: "/ajax/api/filter?appType=foodie_beta",
        success: function (result) {
             $(".content-main").empty();
             console.log("result");
