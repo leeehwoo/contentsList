@@ -10,9 +10,10 @@ urlpatterns = [
     path('recipe', views.BeautyRecipeView.as_view(), name='recipe_view'),
     path('maincamera', views.MainCameraView.as_view(), name='maincamera_view'),
     path('sodabetadiscover', views.DiscoverView1.as_view(), name='sodabetadiscover_view'),
-    #path('sodarealdiscover', views.DiscoverView2.as_view(), name='sodarealdiscover_view'),
-    #path('tianyanbetadiscover', views.DiscoverView3.as_view(), name='tianyanbetadiscover_view'),
-    #path('tianyanrealdiscover', views.DiscoverView4.as_view(), name='tianyanrealdiscover_view'),
+    path('sodarealdiscover', views.DiscoverView2.as_view(), name='sodarealdiscover_view'),
+    path('tianyanbetadiscover', views.DiscoverView3.as_view(), name='tianyanbetadiscover_view'),
+    path('tianyanrealdiscover', views.DiscoverView4.as_view(), name='tianyanrealdiscover_view'),
+    path('foodiebetafeed', views.FeedView1.as_view(), name='foodiebetafeed_view'),
     path('style', views.StyleView.as_view(), name='style_view'),
     path('sodabetastyle', views.View1.as_view(), name='sodabetastyle_view'),
     path('sodarealstyle', views.View2.as_view(), name='sodarealstyle_view'),
@@ -23,6 +24,12 @@ urlpatterns = [
     path('sodarealfilter', views.View6.as_view(), name='sodarealfilter_view'),
     path('tianyanbetafilter', views.View7.as_view(), name='tianyanbetafilter_view'),
     path('tianyanrealfilter', views.View8.as_view(), name='tianyanrealfilter_view'),
-    path('banner', views.View9.as_view(), name='banner_view'),
-    path('styledb', views.View10.as_view(), name='styledb_view'),
+    path('foodiebetafilter', views.View9.as_view(), name='foodiebetafilter_view'),
+    path('sodabetabanner', views.View10.as_view(), name='sodabetabanner_view'),
+    path('foodiebetabanner', views.View11.as_view(), name='foodiebetabanner_view'),
+    path('sodabetamakeup', views.View12.as_view(), name='sodabetamakeup_view'),
+    path('styledb', views.View14.as_view(), name='styledb_view'),
+    path('foodiebetafeed', views.View15.as_view(), name='foodiebetafeed_view'),
+
+
     ]

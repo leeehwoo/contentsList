@@ -37,6 +37,44 @@ class DiscoverView1(TemplateView):
         context = self.get_context_data()
         return self.render_to_response(context=context)
 
+
+class DiscoverView2(TemplateView):
+    template_name = 'discoverPageSodareal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class DiscoverView3(TemplateView):
+    template_name = 'discoverPageTianyanBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
+class DiscoverView4(TemplateView):
+    template_name = 'discoverPageTianyanreal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class FeedView1(TemplateView):
+    template_name = 'FeedPageFoodieBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
 class StyleView(TemplateView):
     template_name = 'mainStyleListPage.html'
     def get_context_data(self, **kwargs):
@@ -140,6 +178,55 @@ class View8(TemplateView):
         return self.render_to_response(context=context)
 
 class View9(TemplateView):
+    template_name = 'FilterListPageFoodieBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
+class View10(TemplateView):
+    template_name = 'bannerSodaBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class View11(TemplateView):
+    template_name = 'bannerFoodieBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
+class View12(TemplateView):
+    template_name = 'makeupSodaBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
+
+
+
+
+
+
+
+
+
+
+class View13(TemplateView):
     template_name = 'serverContentsList.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -154,7 +241,7 @@ class View9(TemplateView):
         # django jinja2 or template view
         return self.render_to_response(context=b)
 
-class View10(TemplateView):
+class View14(TemplateView):
     template_name = 'serverContentsList.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -174,7 +261,13 @@ class View10(TemplateView):
         # django jinja2 or template view
         return self.render_to_response(context=context)
 
-
-
+class View15(TemplateView):
+    template_name = 'FeedPageFoodieBeta.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
 
 
