@@ -34,11 +34,11 @@ def call_filter_api(request):
             url = "http://qa-api.tianyancam.com/v1/filter/overview"
 
         elif app_type == "foodie_real":
-            url = "http://foodie-api.snow.me/v1/filter/overview"
+            url = "https://content-foodie-api.snow.me/v1/sticker/asset/categories?assetType=LUT_FILTER&withAllAssets=true&dl=S"
         elif app_type == "foodie_beta":
             url = "http://qa-content-foodie-api.snow.me/v1/sticker/asset/categories?assetType=LUT_FILTER&withAllAssets=true&dl=S"
         elif app_type == "foodiecn_real":
-            url = "https://api.tianyancam.com/v1/filter/overview"
+            url = "https://content-foodiecn-api.b612kaji.com/v1/sticker/asset/categories?assetType=LUT_FILTER&withAllAssets=true&dl=S"
         elif app_type == "foodiecn_beta":
             url = "http://qa-content-foodiecn-api.b612kaji.com/v1/sticker/asset/categories?assetType=LUT_FILTER&withAllAssets=true&dl=S"
 

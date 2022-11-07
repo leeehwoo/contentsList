@@ -177,11 +177,44 @@ class View8(TemplateView):
         context = self.get_context_data()
         return self.render_to_response(context=context)
 
-class View9(TemplateView):
+class FoodieFilterView1(TemplateView):
     template_name = 'FilterListPageFoodieBeta.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+class FoodieFilterView2(TemplateView):
+    template_name = 'FilterListPageFoodieReal.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
+class FoodieFilterView3(TemplateView):
+    template_name = 'FilterListPageFoodieCnBeta.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
+class FoodieFilterView4(TemplateView):
+    template_name = 'FilterListPageFoodieCnReal.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
         return self.render_to_response(context=context)

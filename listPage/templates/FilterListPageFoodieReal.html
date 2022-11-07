@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en">
+   <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+      <meta http-equiv="Pragma" content="no-cache">
+      <meta charset="UTF-8">
+      <title>Filter List</title>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+      <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
+      <script type="text/javascript" src="/static/qrcode.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <style>
+          .filter_group
+            {
+                display: flex;
+              min-width: 1600px;
+              flex-wrap: wrap;
+            }
+            .filter_group img
+            {
+                height: 100px;
+                width: auto;
+            }
+            .img p {
+                text-align: center;
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+            }
+
+            .content-main > div {
+                display: flex;
+                align-items: center;
+                border-top: 3px dotted #ccc;
+                padding: 50px 0;
+            }
+
+            .c_name {
+                padding: 0 30px;
+            }
+
+            .filter_block {
+                margin-bottom: 30px;
+                width: 100px;
+                height: 130px;
+                margin-right: 30px;
+            }
+
+            .filter_block img {
+                width: 100%;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .filter_name {
+                width: 100%;
+                height: 30px;
+                color: #fff;
+                background-color: #333;
+                font-size: 12px;
+                line-height: 30px;
+                text-align: center;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+            .img img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+            }
+
+            .chk .filter-id{
+               font-size: 22px;
+                font-weight: bold;
+            }
+
+      </style>
+   </head>
+
+   <body>
+   <h1>filter List(Foodie REAL)</h1>
+   <div>
+       <br>
+<body>
+    <!-- body 부분 -->
+    Search : id/name 검색어 입력
+    <input id="searchInput">
+</body>
+
+   </div>
+      <div class="content-main">
+
+        </div>
+
+
+        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">filter Information</h5>
+        <!-- modal 구동 버튼 (trigger) -->
+        <button type="button" class="close cl" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body filter_info">
+            <div id="modal-filter-id"></div>
+          <!-- div 요소는 "순수" 컨테이너로서 아무것도 표현하지 않는다, 대신 다른 요소 여럿을 묶어 class나 id 속성으로 꾸미기 쉽도록 한다.
+          아래의 qrcode2 modal style id 밑에 와야 함, 그래야 팝업 아래에 QR코드가 나온다.-->
+          <div class="qrcode2"></div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary dl" id="dl">QR download</button>
+        <button type="button" class="btn btn-secondary modal-close cl" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+   </body>
+    <script>
+<!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
+        const filter_infos = {
+            main_url:"foodie://go",
+            app_type:"foodie_real",
+        }
+        const filter_json_info = {
+
+        }
+
+<!--ajax_.py의 call style api -->
+    </script>
+<script>
+    var num = '';
+    $(function (){
+
+
+        call_filter_api();
+        $(document) // api가 로딩이 되면
+        .on("click", ".cl" , function (){
+            $("canvas").remove(); // popup close했을 때 초기화되도록 한다. canvas(큐알코드) 삭제
+        })
+
+           // 다운로드 버튼 클릭
+        .on("click", ".dl", function (e){
+
+            // canvas 지정
+            var can = $("canvas")[0];
+            // 이미지 링크 PNG로 생성
+            var QR = can.toDataURL('image/png');
+            // aTag 생성
+            var aTag = document.createElement("a");
+            console.log(num);
+           // 다운로드시 이름
+            aTag.download = num+'.png'
+            // 위에 링크 생성해준걸 등록
+            aTag.href = QR
+            // aTag을 클릭하여 다운로드
+            aTag.click();
+        })// 키보드 esc 버튼 눌렀을 때 초기화
+        .keyup(function (e){
+            if(e.keyCode == 27){
+                $("canvas").remove();
+            }
+            console.log(e.keyCode);
+        })
+    })
+
+
+
+
+    function click_filter_info(th)
+    {
+        console.log($(th));
+        $("#modal-filter-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
+        var s_id = 'foodie://go?filterId=' + $(th).find(".filter-id").text();
+        var filter_json = $(th).find(".filter_json").clone()
+        $("#modal-filter-id").append(`<div>${s_id}</div>`);
+        $("#modal-filter-id").append(filter_json);
+        num = $(th).find('.filter-id').text();
+        console.log(num);
+
+
+
+
+
+// s_id(Line 80)을 qr code로 생성
+$(".qrcode2").qrcode({
+        id:"qr",
+      render: "canvas",
+      width: 100,
+      height: 100,
+      text: (s_id)
+
+      });
+
+    }
+
+
+function call_filter_api() {
+
+    $.ajax({
+        url: "/ajax/api/filter?appType=foodie_real",
+       success: function (result) {
+            $(".content-main").empty();
+            console.log("result");
+            console.log(result.result);
+            for (var i = 0; i < result.result.categories.length; i++) {
+                const gid = result.result.categories[i].id;
+                const gname = result.result.categories[i].title;
+                const chk = result.result.categories[i].subType;
+                let sub_html = ''
+
+
+                for (var j = 0; j < result.result.categories[i].assetIds.length; j++) {
+                        for (var k = 0; k < result.result.assets.length; k++) {
+                            if(result.result.categories[i].assetIds[j] == result.result.assets[k].id){
+                            console.log(result.result.assets[k])
+                            const filter_id = result.result.assets[k].id;
+                            const filter_name = result.result.assets[k].name;
+
+                                const filter_thumb = result.result.cdnPrefix +"sticker/asset/" + filter_id+ "/"+result.result.assets[k].thumbnail;
+                                filter_json_info[filter_id] = {"filter_id":filter_id, "filter_name":filter_name};
+                                sub_html += `<div class="style_block img c${filter_id} c${filter_name}" data-toggle="modal" data-target="#exampleModal" data-categoryid="${gid}" data-itemid="${filter_id}" onclick="click_filter_info($(this))"><div class="filter-id">${filter_id}</div>
+
+
+                                    <img src="${filter_thumb}"></img>
+                                    <div class="filter_name">${filter_name}</div>
+                                    <div class="hide_view_json" data-id="${filter_id}" style="display: none">
+                                        <div class="filter_json">
+                                        <div class="id" data-id="${filter_id}">filter_id : ${filter_id}</div>
+                                        <di>filter_name : ${filter_name}</di>
+
+                                    </div>
+
+                                    </div>
+
+                                    </div>`;
+                        }
+                    }
+
+                }
+
+                const html = `
+            <div className="contentsListContainer" class="c_box">
+                <div className="categorytitleColumn" class="c_name">
+                    <h2>${gid}</h2> <p>${gname}</p>
+                </div>
+                  <div class="filter_group">
+                    ${sub_html}
+                    </div>
+            </div>`
+                $(".content-main").append(html);
+            }
+
+
+            $(".filter_block").click(function () {
+                if ($(this).hasClass('clicked')) {
+                    $(this).removeClass('clicked');
+
+
+                } else {
+
+                    $(".filter_block").removeClass('clicked');
+                    $(this).addClass('clicked');
+                    var a = $(this).find('div')[0];
+                    //styleArgs.paras.styleId = $(a).text()
+                }
+            });
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
+}
+
+
+   $(function(){
+      $(document)
+      .on("keyup"  , function(e){
+         var c = $("#searchInput").val();
+        $(".filter_block").removeClass("chk");
+        $(".c"+c).addClass("chk");
+      })
+
+
+   })
+
+</script>
+</html>

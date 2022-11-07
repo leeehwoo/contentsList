@@ -24,7 +24,12 @@ urlpatterns = [
     path('sodarealfilter', views.View6.as_view(), name='sodarealfilter_view'),
     path('tianyanbetafilter', views.View7.as_view(), name='tianyanbetafilter_view'),
     path('tianyanrealfilter', views.View8.as_view(), name='tianyanrealfilter_view'),
-    path('foodiebetafilter', views.View9.as_view(), name='foodiebetafilter_view'),
+    path('foodiebetafilter', views.FoodieFilterView1.as_view(), name='foodiebetafilter_view'),
+    path('foodierealfilter', views.FoodieFilterView2.as_view(), name='foodierealfilter_view'),
+    path('foodiecnbetafilter', views.FoodieFilterView3.as_view(), name='foodiebetacnfilter_view'),
+    path('foodiecnrealfilter', views.FoodieFilterView4.as_view(), name='foodierealcnfilter_view'),
+
+
     path('sodabetabanner', views.View10.as_view(), name='sodabetabanner_view'),
     path('foodiebetabanner', views.View11.as_view(), name='foodiebetabanner_view'),
     path('sodabetamakeup', views.View12.as_view(), name='sodabetamakeup_view'),
