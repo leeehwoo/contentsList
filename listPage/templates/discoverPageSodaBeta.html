@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
       <meta http-equiv="Pragma" content="no-cache">
       <meta charset="UTF-8">
-      <title>Studio List</title>
+      <title>Studio List Soda Beta</title>
       <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
       <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
       <script type="text/javascript" src="/static/qrcode.js"></script>
@@ -18,8 +18,8 @@
         *{margin: 0; padding: 0; box-sizing: border-box;}
         li , ul {list-style: none;}
 
-        .menu {display: flex;}
-        .menu li {text-align: center; color: #fff; border-left: 1px solid #f5f5f5; line-height: 50px; width: calc(100% / 8); height: 50px; cursor: pointer; background-color: #333 ;}
+        .menu {display: flex; width: 100%; align-items: center; flex-wrap: wrap; background-color: #333;}
+        .menu li {text-align: center; color: #fff; border-left: 1px solid #f5f5f5; line-height: 50px; width: calc(100% / 10); height: 50px; cursor: pointer; background-color: #333 ;}
         .menu li:first-child {border: 0;}
         .list {display: flex; align-items: center; flex-wrap: wrap; padding: 50px 100px; border-bottom: 2px dashed #999;}
 
@@ -66,7 +66,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">template information</h5>
+              <h5 class="modal-title" id="exampleModalLabel">studio information</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -118,15 +118,17 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 
         }
 
-
+// <!--ajax_.py의 call style api -->
     </script>
 <script>
     var num = '';
 
 
+
+
+
 // append를 해주는 부분.(jQuery append with api call)
-// 아래의 부분은 결과 성공 call back 함수인데, request가 완료 되었을 때, 시작하는 부분이다.
-    // <!--ajax_.py의 call studio api -->
+// 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
 
 function call_studio_api() {
 
@@ -137,20 +139,12 @@ function call_studio_api() {
             html = '';
             console.log(r)
             console.log(r.templates)
-            /**array.forEach(callback(element, index, arr), thisArg)
-             * callback : 실행할 함수. 즉, function(){}
-             * element : 배열의 현재 요소.
-             * index : 요소의 인덱스.
-             * arr : forEach()가 호출한 배열
-             * thisArg : 콜백을 실행할 동안  this로 사용할 값.
-             **/
             r.templates.forEach(e => {
-
                 html += `
                 <li >
                     <h3>${e.id}</h3>
                     <div class="list_box">
-                        <img src="${img}" alt="">
+                        <img src="${r.cdnPrefix+e.thumbnail}" alt="">
                         <h3>${e.title}</h3>
                     </div>
                 </li>
@@ -175,9 +169,7 @@ function call_studio_api() {
         $(document) // api가 로딩이 되면
         .on("click", ".menu li" , function(){
             const t = $(this).text()
-            // 목록 전부다 hide
             $(".box").hide();
-            // 메뉴를 클릭하면 이름을 데이터에서 체크하여 해당 데이터를 show()해준다.
             for (let i = 0; i < arr_cat.length; i++) {
                 if(arr_cat[i].title == t){
                     console.log(arr_cat[i].templateIds);
@@ -189,7 +181,6 @@ function call_studio_api() {
 
             }
         })
-            // 모달창 데이터 넣는 부분
         .on("click", ".modal" , function(){
             // $(".modal").show();
         })
@@ -213,14 +204,13 @@ function call_studio_api() {
             aTag.href = QR
             // aTag을 클릭하여 다운로드
             aTag.click();
-        })// 키보드 esc 버튼 눌렀을 때 초기화
+        })// 키보드 esc 버튼 눌렀을 때 초기
         .keyup(function (e){
             if(e.keyCode == 27){
                 $("canvas").remove();
             }
             console.log(e.keyCode);
         })
-            // id를 클릭시 들어있는 값들을 jquery에서 가져올 수 있다.
         .on("click" , ".m_ckh", function(){
             a = $(this).parent().data("id")
             aa = arr_tem[a];
@@ -262,8 +252,6 @@ function call_studio_api() {
 
             });
         })
-            // json내용 보여주는 부분
-
         .on("click", ".json" , function(){
             if(!$(".modal-json").hasClass("json-chk")){
 
@@ -294,13 +282,12 @@ function call_studio_api() {
             html = '';
             num = 0;
             r.templates.forEach(e => {
-                var img = "http://soda-static.snow.me/template/"+e.id+"/"+e.thumbnail;
-                console.log(img);
+                console.log(e)
                 html += `
                 <li class="box box${e.id}" data-id="${num}">
                     <h3 class="m_ckh" data-toggle="modal" data-target="#exampleModal">${e.id}</h3>
                     <div class="list_box m_ckh" data-toggle="modal" data-target="#exampleModal">
-                        <img src="${img}" alt="">
+                        <img src="http://qa-soda-static.snow.me/soda/template/${e.id}/${e.thumbnail}" alt="">
                         <h3>${e.title}</h3>
                     </div>
                 </li>
@@ -314,5 +301,42 @@ function call_studio_api() {
         }
     })
 }
+
+function menu() {
+    $.ajax({
+        url: "/ajax/api/studio?appType=soda_beta",
+        success: function (result) {
+            const r = result.result;
+            console.log(r);
+            html = '';
+
+            let menu_data = [];
+            r.categories.forEach(e => {
+
+                if(menu_data.indexOf(e.title) == -1){
+                    menu_data.push(e.title);
+                    console.log(menu_data);
+                }
+
+            });
+            for (let i = 0; i < menu_data.length; i++) {
+
+                html += `
+                    <li>${menu_data[i]}</li>
+                `
+            }
+            $(".menu").html(html);
+        },
+        error: function (e) {
+            console.log("err")
+        }
+    })
+    console.log("on")
+}
+
+$(function () {
+    menu();
+    console.log("wda");
+})
 
 </script>

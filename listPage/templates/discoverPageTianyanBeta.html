@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
       <meta http-equiv="Pragma" content="no-cache">
       <meta charset="UTF-8">
-      <title>Studio List Soda Beta</title>
+      <title>Studio List tianyan Beta</title>
       <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
       <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
       <script type="text/javascript" src="/static/qrcode.js"></script>
@@ -111,8 +111,8 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
     <script>
 // <!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
         const studio_infos = {
-            main_url:"soda://studio?",
-            app_type:"soda_real",
+            main_url:"tianyanb://studio?",
+            app_type:"tianyan_beta",
         }
         const studio_json_info = {
 
@@ -133,7 +133,7 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 function call_studio_api() {
 
     $.ajax({
-        url: "/ajax/api/studio?appType=soda_real",
+        url: "/ajax/api/studio?appType=tianyan_beta",
         success: function (result) {
             const r = result.result
             html = '';
@@ -214,7 +214,7 @@ function call_studio_api() {
         .on("click" , ".m_ckh", function(){
             a = $(this).parent().data("id")
             aa = arr_tem[a];
-            link = "sodab://studio?templateId="+aa.id;
+            link = "tianyanb://studio?templateId="+aa.id;
             html = `
                 <h3>id:${aa.id}</h3>
               <h3>name:${aa.name}</h3>
@@ -274,7 +274,7 @@ var arr_tem = [];
 function call_studio_api() {
 
     $.ajax({
-        url: "/ajax/api/studio?appType=soda_real",
+        url: "/ajax/api/studio?appType=tianyan_beta",
         success: function (result) {
             const r = result.result;
             arr_cat = r.categories;
@@ -287,7 +287,7 @@ function call_studio_api() {
                 <li class="box box${e.id}" data-id="${num}">
                     <h3 class="m_ckh" data-toggle="modal" data-target="#exampleModal">${e.id}</h3>
                     <div class="list_box m_ckh" data-toggle="modal" data-target="#exampleModal">
-                        <img src="http://qa-soda-static.snow.me/soda/template/${e.id}/${e.thumbnail}" alt="">
+                        <img src="http://qa-static.tianyancam.com/template/${e.id}/${e.thumbnail}" alt="">
                         <h3>${e.title}</h3>
                     </div>
                 </li>
@@ -304,7 +304,7 @@ function call_studio_api() {
 
 function menu() {
     $.ajax({
-        url: "/ajax/api/studio?appType=soda_real",
+        url: "/ajax/api/studio?appType=tianyan_beta",
         success: function (result) {
             const r = result.result;
             console.log(r);
