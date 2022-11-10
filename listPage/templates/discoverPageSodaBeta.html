@@ -40,18 +40,11 @@
        <!-- <br> -->
 <body>
         <div id="wrap">
-        <ul class="menu">
-           <li>HOT</li>
-           <li>NEW</li>
-           <li>Personal Color</li>
-           <li>💫Glitter💫</li>
-           <li>Mood</li>
-           <li>Retro</li>
-           <li>Cute</li>
-           <li>💄Makeup</li>
+        <ul class="menu">  <!-- 맨 위에 둘러보기 페이지의 카테고리가 오도록 함 -->
+
         </ul>
         <main>
-            <ul class="list">
+            <ul class="list"> <!-- 그 아래 template의 목록이 오도록 하고, 클릭시에 모달 팝업 -->
                 <li class="box box${e.id}">
                     <h3 class="m_chk" data-toggle="modal" data-target="#exampleModal">${e.id}</h3>
                     <div class="m_chk list_box" data-toggle="modal" data-target="#exampleModal">
@@ -90,16 +83,7 @@
    </body>
 </body>
 
-       <br>
-       <br>
-       <!-- <select id="select_app_type">
-           <option value="soda_real" selected>soda real</option>
-           <option value="soda_beta">soda beta</option>
-           <option value="tianyan_real">tianyan real</option>
-           <option value="tianyan_beta">tainyan beta</option>
-       </select> -->
-       <br>
-       <br>
+
    </div>
       <div class="content-main">
 
@@ -129,17 +113,21 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 
 // append를 해주는 부분.(jQuery append with api call)
 // 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
+// $ajax() : 데이터를 서버에 HTTP POST.GET 방식으로 전송 통합 메서드
+    //url : 데이터를 전송할 페이지를 설정. 기본값은 현재 페이지
+
 
 function call_studio_api() {
 
     $.ajax({
         url: "/ajax/api/studio?appType=soda_beta",
         success: function (result) {
-            const r = result.result
+            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
+            const r = result.result // result라는 객체로 보냈기 때문에 result로 결과가 온다.
             html = '';
             console.log(r)
             console.log(r.templates)
-            r.templates.forEach(e => {
+            r.templates.forEach(e => { // 배열의 각 요소에 대한 함수를 호출, 아래에서 id, img, title 보여준다.
                 html += `
                 <li >
                     <h3>${e.id}</h3>
@@ -151,7 +139,7 @@ function call_studio_api() {
                 `
             });
 
-            $(".list").html(html);
+            $(".list").html(html); //로딩이 되었으면 정상적으로 처리, 아니면 에러메시지 출력
         },
         error: function (e) {
             console.error(e);
@@ -166,11 +154,11 @@ function call_studio_api() {
         call_studio_api();
         var num2 = ""
         // $(".modal").show();
-        $(document) // api가 로딩이 되면
+        $(document) // api가 로딩이 되면 클릭 > open > 닫으면 hide
         .on("click", ".menu li" , function(){
             const t = $(this).text()
             $(".box").hide();
-            for (let i = 0; i < arr_cat.length; i++) {
+            for (let i = 0; i < arr_cat.length; i++) { // 배열에 있는 모든 값을 출력
                 if(arr_cat[i].title == t){
                     console.log(arr_cat[i].templateIds);
                     arr_cat[i].templateIds.forEach(e => {
@@ -271,6 +259,8 @@ var arr_tem = [];
 // append를 해주는 부분.(jQuery append with api call)
 // 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
 
+
+<!-- list의 box안에 들어갈 내용 -->
 function call_studio_api() {
 
     $.ajax({
@@ -302,6 +292,7 @@ function call_studio_api() {
     })
 }
 
+<!-- 상단 menu에 들어갈 내용 -->
 function menu() {
     $.ajax({
         url: "/ajax/api/studio?appType=soda_beta",
@@ -311,10 +302,10 @@ function menu() {
             html = '';
 
             let menu_data = [];
-            r.categories.forEach(e => {
+            r.categories.forEach(e => { // api의 category을 menu로 보여주려고 각 요소 호출
 
-                if(menu_data.indexOf(e.title) == -1){
-                    menu_data.push(e.title);
+                if(menu_data.indexOf(e.title) == -1){ //menu_data에 참조된 문자열 왼쪽부터 -1개 초과되면 title 찾음
+                    menu_data.push(e.title); //배열 추가
                     console.log(menu_data);
                 }
 

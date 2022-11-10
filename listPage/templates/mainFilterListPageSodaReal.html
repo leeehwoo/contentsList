@@ -83,7 +83,7 @@
    </head>
 
    <body>
-   <h1>filter List(SODA REAL)</h1>
+   <h1>filter List(SODA real)</h1>
    <div>
        <br>
 <body>
@@ -215,7 +215,7 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
     {
         console.log($(th));
         $("#modal-filter-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
-        var s_id = 'sodab://go?filterId=' + $(th).find(".filter-id").text();
+        var s_id = 'soda://go?filterId=' + $(th).find(".filter-id").text();
         var filter_json = $(th).find(".filter_json").clone()
         $("#modal-filter-id").append(`<div>${s_id}</div>`);
         $("#modal-filter-id").append(filter_json);

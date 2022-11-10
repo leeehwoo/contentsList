@@ -8,6 +8,17 @@ from django.db.models import Q
 from style_filter_list.models import Banner, Style
 
 
+
+class MainPage(TemplateView):
+    template_name = 'mainpage.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        return context
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        return self.render_to_response(context=context)
+
+
 class BeautyRecipeView(TemplateView):
     template_name = 'beautyRecipePage.html'
     def get_context_data(self, **kwargs):
@@ -66,14 +77,6 @@ class DiscoverView4(TemplateView):
         context = self.get_context_data()
         return self.render_to_response(context=context)
 
-class FeedView1(TemplateView):
-    template_name = 'FeedPageFoodieBeta.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        return context
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data()
-        return self.render_to_response(context=context)
 
 class StyleView(TemplateView):
     template_name = 'mainStyleListPage.html'

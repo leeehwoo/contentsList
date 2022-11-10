@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+
 <html lang="en">
    <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -7,53 +7,94 @@
       <meta charset="UTF-8">
       <title>Style List</title>
       <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-      <script type="text/javascript" src="{% static 'jquery.qrcode.js' %}"></script>
-      <script type="text/javascript" src="{% static 'qrcode.js' %}"></script>
+      <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
+      <script type="text/javascript" src="/static/qrcode.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <style>
-            .style_group
+          .style_group
             {
-                display: inline-flex;
+                display: flex;
+                min-width: 1600px;
+                flex-wrap: wrap;
             }
             .style_group img
             {
-                height: 150px;
+                height: 100px;
                 width: auto;
             }
             .img p {
                 text-align: center;
-                width: 150px;
-                height: 150px;
-                line-height: 150px;
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
             }
+
+            .content-main > div {
+                display: flex;
+                align-items: center;
+                border-top: 3px dotted #ccc;
+                padding: 50px 0;
+            }
+
+            .c_name {
+                padding: 0 30px;
+            }
+
+            .style_block {
+                margin-bottom: 30px;
+                width: 100px;
+                height: 130px;
+                margin-right: 30px;
+            }
+
+            .style_block img {
+                width: 100%;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+            .style_name {
+                width: 100%;
+                height: 30px;
+                color: #fff;
+                background-color: #333;
+                font-size: 12px;
+                line-height: 30px;
+                text-align: center;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
             .img img {
-                width: 150px;
-                height: 150px;
+                width: 100px;
+                height: 100px;
                 object-fit: cover;
             }
 
-
             .chk .style-id{
-               font-size: 32px;
+                font-size: 22px;
                 font-weight: bold;
             }
+            .modal-json {padding: 10px; margin-top: 10px; border-top: 1px solid #ccc; font-size: 12px;}
+
       </style>
    </head>
 
    <body>
-   <h1>Style List</h1>
+   <h1>Style List(TIANYAN BETA)</h1>
    <div>
+       <br>
+<body>
+    <!-- body 부분 -->
+    Search : id/name 검색어 입력
+    <input id="searchInput">
+</body>
 
        <br>
        <br>
-             <body>
-    <!-- body 부분 -->
-    스타일 검색 : 테스트
-    <input id="searchInput">
-</body>
        <!-- <select id="select_app_type">
            <option value="soda_real" selected>soda real</option>
            <option value="soda_beta">soda beta</option>
@@ -85,11 +126,14 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
           <!-- div 요소는 "순수" 컨테이너로서 아무것도 표현하지 않는다, 대신 다른 요소 여럿을 묶어 class나 id 속성으로 꾸미기 쉽도록 한다.
           아래의 qrcode2 modal style id 밑에 와야 함, 그래야 팝업 아래에 QR코드가 나온다.-->
           <div class="qrcode2"></div>
+          <div class="modal-json"></div>
+
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary dl" id="dl">QR download</button>
         <button type="button" class="btn btn-secondary modal-close cl" data-dismiss="modal">Close</button>
-      </div>
+        <button type="button" class="json btn btn-primary">json</button>
+    </div>
     </div>
   </div>
 </div>
@@ -155,30 +199,60 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
             aTag.href = QR
             // aTag을 클릭하여 다운로드
             aTag.click();
-        })// 키보드 esc 버튼 눌렀을 때 초기
+        })// 키보드 esc 버튼 눌렀을 때 초기화
         .keyup(function (e){
             if(e.keyCode == 27){
                 $("canvas").remove();
             }
             console.log(e.keyCode);
         })
+        .on("click", ".json" , function(){
+            if(!$(".modal-json").hasClass("json-chk")){
+
+                $(".modal-json").show();
+                $(".modal-json").addClass("json-chk")
+            }else {
+                $(".modal-json").hide();
+                $(".modal-json").removeClass("json-chk")
+            }
+        })
     })
 
 
-
+var result_all = [];
 
     function click_style_info(th)
     {
+        console.log($(th));
         $("#modal-style-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
         var s_id = 'tianyanb://go?styleId=' + $(th).find(".style-id").text();
         var style_json = $(th).find(".style_json").clone()
         $("#modal-style-id").append(`<div>${s_id}</div>`);
         $("#modal-style-id").append(style_json);
         num = $(th).find('.style-id').text();
-        console.log(num);
+        // console.log(num);
 
-
-
+        var a = $(th).data("id");
+        var aa = result_all.styles[a];
+        console.log(a, result_all.styles[a] , aa);
+        html2 = '';
+        $(".modal-json").hide();
+            console.log(aa);
+            html2 =`{
+                <br>
+                &nbsp;thumbnail: ${aa.thumbnail}<br>
+                &nbsp;newmarkEndDate: ${aa.newmarkEndDate}<br>
+                &nbsp;updated: ${aa.updated}<br>
+                &nbsp;thumbnailColor: ${aa.thumbnailColor}<br>
+                &nbsp;version: ${aa.version}<br>
+                &nbsp;name: ${aa.name}<br>
+                &nbsp;id: ${aa.id}<br>
+                &nbsp;extension: {<br>
+                &nbsp;&nbsp;packageFileExtProcessed: ${aa.extension.packageFileExtProcessed}<br>
+                &nbsp;}<br>
+                <br>
+            }`;
+            $(".modal-json").html(html2);
 
 
 // s_id(Line 80)을 qr code로 생성
@@ -199,11 +273,12 @@ $(".qrcode2").qrcode({
 function call_style_api() {
 
     $.ajax({
-        url: "{% url 'style_filter_list:api_style' %}?appType=tianyan_beta",
+        url: "/ajax/api/style?appType=tianyan_beta",
         success: function (result) {
             $(".content-main").empty();
             // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
-            console.log(result.result); // result라는 객체로 보냈기 때문에 result로 결과가 온다.
+            result_all = result.result;
+            // console.log(result.result); // result라는 객체로 보냈기 때문에 result로 결과가 온다.
             // 처음에 그룹(카테고리)를 뽑고 있다.
             for (var i = 0; i < result.result.groups.length; i++) {
                 const gid = result.result.groups[i].id;
@@ -219,7 +294,7 @@ function call_style_api() {
 
                         // 그래서 if로 그것들을 다 찾는다.
                         if (result.result.groups[i].styleIds[j] === result.result.styles[k].id) {
-                            console.log(result.result.styles[k])
+                            // console.log(result.result.styles[k])
                             const style_id = result.result.styles[k].id;
                             const style_name = result.result.styles[k].name;
                             const style_thumb = result.result.cdnPrefix + result.result.styles[k].thumbnail;
@@ -228,10 +303,10 @@ function call_style_api() {
                             // 그러고 나서 계속 이 html부분을 누적을 해 준다.
                             // 이 작업이 끝나면 하나의 group에 있는 모든 styleID들을 다 찾은 것이다.
                             //style_id과 style_name추가해서 검색 가능하게 해줌
-                            sub_html += `<div class="style_block img c${style_id} c${style_name}" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
+                            sub_html += `<div class="style_block img c${style_id} c${style_name}" data-id="${k}" data-toggle="modal" data-target="#exampleModal" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>
 
 
-                                    <img src="${style_thumb}"></img>
+                                    <img src="${style_thumb}" onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"></img>
                                     <div class="style_name">${style_name}</div>
                                     <div class="hide_view_json" data-id="${style_id}" style="display: none">
                                         <div class="style_json">
@@ -264,9 +339,9 @@ function call_style_api() {
 
 
                 const html = `
-            <div className="contentsListContainer">
-                <div className="categoryNameColumn">
-                    ${gid}, ${gname}
+            <div className="contentsListContainer" class="c_box">
+                <div className="categoryNameColumn" class="c_name">
+                    <h2>${gid}</h2> <p>${gname}</p>
                 </div>
                   <div class="style_group">
                     ${sub_html}
@@ -304,6 +379,8 @@ function call_style_api() {
 }
 // 그러면 이제, group으로 묶을 곳에다가 더해준다.
 // 내 그룹이 나오고 > 스타일id들이 쭉 나온다.
+
+
 
    // 키를 누를때마다 검색을 위한 event
    $(function(){

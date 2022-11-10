@@ -245,23 +245,33 @@ function call_style_api() {
         url: "/ajax/api/style?appType=makeup_beta",
         success: function (result) {
             $(".content-main").empty();
+            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
             console.log("result");
             console.log(result.result);
+            // console.log(result.result); // result라는 객체로 보냈기 때문에 result로 결과가 온다.
+            // 처음에 그룹(카테고리)를 뽑고 있다.
             for (var i = 0; i < result.result.categories.length; i++) {
                 const gid = result.result.categories[i].id;
                 const gtitle = result.result.categories[i].title;
                 const chk = result.result.categories[i].subType;
                 let sub_html = ''
+                // 여기서부터는 하나의 그룹에, styleID 많이 가지고 있는 것 가지고 오려는 부분을 for문으로 돌린다.
+                // 여기서 체크할 것 : style들은 따로 오는데, 그 style들을 다시 조회하긴 해야 된다.
+                // 만약 A카테고리에 스타일이 30개, B카테고리에 스타일이 20개 이렇게 있다고 해도..그룹이 한꺼번에 오니까 그거에 대해서는 조회를 다 해야 된다.
 
                 if(chk != "MAKEUP_SUB"){
 
                     for (var j = 0; j < result.result.categories[i].assetIds.length; j++) {
                         for (var k = 0; k < result.result.assets.length; k++) {
+                             // 그래서 if로 그것들을 다 찾는다.
                             if(result.result.categories[i].assetIds[j] == result.result.assets[k].id){
                             console.log(result.result.assets[k])
                             const style_id = result.result.assets[k].id;
                             const style_name = result.result.assets[k].name;
 
+                             // 해당 파라미터 안에 값을 넣고, make url을 한다.
+                                // 그러고 나서 계속 이 html부분을 누적을 해 준다.
+                            // 이 작업이 끝나면 하나의 group에 있는 모든 styleID들을 다 찾은 것이다.
                                 const style_thumb = result.result.cdnPrefix +"/sticker/asset/" + style_id+ "/"+result.result.assets[k].thumbnail;
                                 style_json_info[style_id] = {"style_id":style_id, "style_name":style_name};
                                 sub_html += `<div class="style_block img c${style_id} c${style_name}" data-toggle="modal" data-target="#exampleModal" data-categoryid="${gid}" data-itemid="${style_id}" onclick="click_style_info($(this))"><div class="style-id">${style_id}</div>

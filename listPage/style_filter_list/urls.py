@@ -13,7 +13,6 @@ urlpatterns = [
     path('sodarealdiscover', views.DiscoverView2.as_view(), name='sodarealdiscover_view'),
     path('tianyanbetadiscover', views.DiscoverView3.as_view(), name='tianyanbetadiscover_view'),
     path('tianyanrealdiscover', views.DiscoverView4.as_view(), name='tianyanrealdiscover_view'),
-    path('foodiebetafeed', views.FeedView1.as_view(), name='foodiebetafeed_view'),
     path('style', views.StyleView.as_view(), name='style_view'),
     path('sodabetastyle', views.View1.as_view(), name='sodabetastyle_view'),
     path('sodarealstyle', views.View2.as_view(), name='sodarealstyle_view'),
@@ -28,6 +27,7 @@ urlpatterns = [
     path('foodierealfilter', views.FoodieFilterView2.as_view(), name='foodierealfilter_view'),
     path('foodiecnbetafilter', views.FoodieFilterView3.as_view(), name='foodiebetacnfilter_view'),
     path('foodiecnrealfilter', views.FoodieFilterView4.as_view(), name='foodierealcnfilter_view'),
+    path('mainpage', views.MainPage.as_view(), name='mainpage_view'),
 
 
     path('sodabetabanner', views.View10.as_view(), name='sodabetabanner_view'),
