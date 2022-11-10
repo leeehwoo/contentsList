@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>API</title>
+</head>
+
+<body>
+    <div id ="contents">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.1.4/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        call_style_api();
+    });
+
+    function call_style_api() {
+
+        //function getApi() {
+            var user = 'snowtest'; // 계정ID
+            var password = 'snow2022'; //비밀번호
+            var auth = getBaseAuth(user, password);
+
+            $.ajax({
+                url: "/ajax/api/style?appType=banner_beta",
+                type: "GET",
+                headers: {
+                    "Authorization": "Basic " + auth
+                },
+                dataType: "json",
+                data: {
+                    pageNum: 1,
+                    pageSize: 10,
+                    gender: "",
+                    userId: "",
+                    level: "",
+                    startDate: "",
+                    endDate: "",
+                    appId: "",
+                    status: 2
+                },
+                contentType: "application/json; charset=UTF-8",
+                success: function (e) {
+                    $("#contents").empty().append(e);
+                }
+            });
+
+        }
+
+
+        function getBaseAuth(user, password) {
+            var tok = user + ':' + password;
+            var hash = btoa(tok);
+            return "Basic " + hash;
+        };
+
+
+
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+

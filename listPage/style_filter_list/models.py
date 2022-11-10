@@ -449,8 +449,8 @@ class Style(models.Model):
     thumbnail_color = models.CharField(max_length=20, blank=True, null=True)
     version = models.BigIntegerField()
     screen_capture_mode = models.TextField()  # This field type is a guess.
-    sound = models.TextField(blank=True, null=True)  # This field type is a guess.
-    smart_blur = models.TextField(blank=True, null=True)  # This field type is a guess.
+    sound = models.BooleanField(blank=True, null=True)  # This field type is a guess.
+    smart_blur = models.BooleanField(blank=True, null=True)  # This field type is a guess.
     download_type = models.CharField(max_length=255)
     device_level = models.CharField(max_length=2, blank=True, null=True)
     device_types = models.CharField(max_length=20, blank=True, null=True)

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adsdk Soda Beta</title>
+    <style>
+      * {margin: 0; padding: 0; box-sizing: 0;}
+      ul , li {list-style: none;}
+      .top {width: 100%; height: 50px; background-color: #333; color: #fff; text-align: center; font-size: 18px; font-weight: bold; line-height: 50px;}
+      .box_list {width: 80%; min-width: 1000px; margin: 50px auto;  border: 1px solid #333; min-height: 500px;}
+      .main_box_list {display: flex; align-items: center; flex-wrap: wrap;}
+      .main_box {width: 350px; height: 130px; margin: 20px auto; background-color: #f5f5f5;}
+      .main_box_top {width: 100%; height: 30px; color: #fff;  background-color: #333; text-align: center; line-height: 30px;}
+      .box_flex {display: flex; }
+      .box_img {background-color: #999; width: 100px; height: 100px; color: #fff;  text-align: center; line-height: 100px;}
+      .box_text {padding: 5px 10px;}
+      .box_text div {line-height: 28px; display: flex; align-items: center;}
+      .box_text div span {width: 110px; font-size: 14px; font-weight: bold;}
+      .box_text div p {font-size: 14px;}
+    </style>
+</head>
+<body>
+  <div class="box_list">
+    <div class="box">
+      <div class="top">카테고리</div>
+      <div class="main_box_list">
+        <div class="main_box">
+            <div class="main_box_top">
+                <p>id:156186</p>
+            </div>
+            <div class="box_flex">
+                <div class="box_img">
+                    이미지
+                    <!-- <img src="" alt=""> -->
+                </div>
+                <div class="box_text">
+                  <div>
+                    <span>priority</span>
+                    <p>1877</p>
+                  </div>
+                  <div>
+                    <span>exposureHour</span>
+                    <p>1877</p>
+                  </div>
+                  <div>
+                    <span>exposureTimes</span>
+                    <p>1877</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</body>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+$(function() {
+
+    var arr = [];
+    $.ajax({
+      url: "/ajax/api/studio?appType=banner_beta",
+        success: function (result) {
+          var data = result.returnData.records;
+          for (let i = 0; i < data.length; i++) {
+            if(arr.indexOf(data[i].adType) != -1){
+              arr.push(data[i].adType);
+            }
+          }
+
+          var html = ``;
+          for (let i = 0; i < arr.length; i++) {
+            var num = arr[i];
+            var ad = "";
+            if(arr[i] == 1){
+                ad = "splash";
+            }else if(arr[i] == 2){
+                ad = "camera icon";
+            }else if(arr[i] == 3){
+                ad = "reward video";
+            }else if(arr[i] == 4){
+                ad = "edit image icon";
+            }else if(arr[i] == 5){
+                ad = "edit video icon";
+            }else if(arr[i] == 6){
+                ad = "edit video icon";
+            }else if(arr[i] == 7){
+                ad = "edit image popup";
+            }else if(arr[i] == 8){
+                ad = "gfp-soda-edit popup";
+            }else if(arr[i] == 9){
+                ad = "gallery top-banner";
+            }else if(arr[i] == 10){
+                ad = "finish";
+            }else if(arr[i] == 11){
+                ad = "Camera Popup";
+            }else if(arr[i] == 12){
+                ad = "l";
+            }else if(arr[i] == 13){
+                ad = "m";
+            }else {
+                ad = "n";
+            }
+            html += `
+            <div class="box" >
+              <div class="top">${ad}</div>
+              <div class="main_box_list">
+                <div class="main_box c${num}">
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+            `
+
+
+          }
+          $(".box_list").html(html);
+
+          for (let i = 0; i < data.length; i++) {
+            var html = ``;
+            html +=`
+            <div class="main_box">
+              <div class="main_box_top">
+                  <p>id:${data[i].id}</p>
+              </div>
+              <div class="box_flex">
+                  <div class="box_img">
+                      이미지
+                      <!-- <img src="" alt=""> -->
+                  </div>
+                  <div class="box_text">
+                    <div>
+                      <span>priority</span>
+                      <p>${data[i].priority}</p>
+                    </div>
+                    <div>
+                      <span>exposureHour</span>
+                      <p>${data[i].exposureHour}</p>
+                    </div>
+                    <div>
+                      <span>exposureTimes</span>
+                      <p>${data[i].exposureTimes}</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+            `
+            $(".c"+data[i].adType).append(html);
+
+          }
+        },
+        error: function (e) {
+            console.error(e);
+        }
+    })
+})
+
+</script>
