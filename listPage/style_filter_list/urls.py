@@ -36,5 +36,10 @@ urlpatterns = [
     path('styledb', views.View14.as_view(), name='styledb_view'),
     path('foodiebetafeed', views.View15.as_view(), name='foodiebetafeed_view'),
 
+    path('jquerymin', views.View16.as_view(), name='jquerymin_view'),
+    path('jqueryqrcode', views.View17.as_view(), name='jqueryqrcode_view'),
+    path('qrcode', views.View18.as_view(), name='qrcode_view'),
+
+
 
     ]

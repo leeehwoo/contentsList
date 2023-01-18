@@ -14,7 +14,8 @@ def call_style_api(request):
         elif app_type == "tianyan_beta":
             url = "http://qa-api.tianyancam.com/v1/style/overview"
         elif app_type == "makeup_beta":
-            url = "https://qa-content-soda-api.snow.me/v1/sticker/asset/categories?assetType=MAKEUP&position=EDIT&withAllAssets=true&dl=S"
+            #url = "https://qa-content-soda-api.snow.me/v1/sticker/asset/categories?assetType=MAKEUP&position=EDIT&withAllAssets=true&dl=S"
+            url = "http://qa-content-soda-api.snow.me/v1/sticker/asset/categories?assetSubType=MAKEUP_ITEM%2CMAKEUP_SUB&assetType=MAKEUP&dl=S&position=EDIT&withAllAssets=true"
         elif app_type == "banner_beta":
             url = "http://adg-beta.kajicam.com/adminapi/plan/list?pageNum=1&pageSize=10&gender=&userId=&level=&startDate=&endDate=&appId=soda&status=2"
 

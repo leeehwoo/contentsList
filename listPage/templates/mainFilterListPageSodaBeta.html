@@ -1,160 +1,186 @@
 <!DOCTYPE html>
 
 <html lang="en">
-   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-      <meta http-equiv="Pragma" content="no-cache">
-      <meta charset="UTF-8">
-      <title>Style List</title>
-      <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-      <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
-      <script type="text/javascript" src="/static/qrcode.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <style>
-          .filter_group
-            {
-                display: flex;
-              min-width: 1600px;
-              flex-wrap: wrap;
-            }
-            .filter_group img
-            {
-                height: 100px;
-                width: auto;
-            }
-            .img p {
-                text-align: center;
-                width: 100px;
-                height: 100px;
-                line-height: 100px;
-            }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta charset="UTF-8">
+    <title>Style List</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.qrcode.js"></script>
+    <script type="text/javascript" src="/static/qrcode.js"></script>
 
-            .content-main > div {
-                display: flex;
-                align-items: center;
-                border-top: 3px dotted #ccc;
-                padding: 50px 0;
-            }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .filter_group {
+            display: flex;
+            min-width: 1600px;
+            flex-wrap: wrap;
+        }
 
-            .c_name {
-                padding: 0 30px;
-            }
+        .filter_group img {
+            height: 100px;
+            width: auto;
+        }
 
-            .filter_block {
-                margin-bottom: 30px;
-                width: 100px;
-                height: 130px;
-                margin-right: 30px;
-            }
+        .img p {
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+        }
 
-            .filter_block img {
-                width: 100%;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
+        .content-main>div {
+            display: flex;
+            align-items: center;
+            border-top: 3px dotted #ccc;
+            padding: 50px 0;
+        }
 
-            .filter_name {
-                width: 100%;
-                height: 30px;
-                color: #fff;
-                background-color: #333;
-                font-size: 12px;
-                line-height: 30px;
-                text-align: center;
-                border-bottom-left-radius: 10px;
-                border-bottom-right-radius: 10px;
-            }
+        .c_name {
+            padding: 0 30px;
+        }
 
-            .img img {
-                width: 100px;
-                height: 100px;
-                object-fit: cover;
-            }
+        .filter_block {
+            margin-bottom: 30px;
+            width: 100px;
+            height: 130px;
+            margin-right: 30px;
+        }
 
-            .chk .filter-id{
-               font-size: 22px;
-                font-weight: bold;
-            }
+        .filter_block img {
+            width: 100%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
 
-      </style>
-   </head>
+        .filter_name {
+            width: 100%;
+            height: 30px;
+            color: #fff;
+            background-color: #333;
+            font-size: 12px;
+            line-height: 30px;
+            text-align: center;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
 
-   <body>
-   <h1>filter List(SODA real)</h1>
-   <div>
-       <br>
+        .img img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .chk .filter-id {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .line {
+            width: 100%;
+            border: 1px Dotted #ccc;
+        }
+
+        .filter-id-wrap {
+            display: flex;
+            align-items: center;
+            height: 15px;
+        }
+
+        .filter-id-wrap>.VIP {
+            color: red;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
 <body>
-    <!-- body 부분 -->
-    Search : id/name 검색어 입력
-    <input id="searchInput">
-</body>
+    <h1>filter List(SODA real)</h1>
+    <div>
+        <br>
 
-       <br>
-       <br>
-       <!-- <select id="select_app_type">
+        <body>
+            <!-- body 부분 -->
+            Search : id/name 검색어 입력
+            <input id="searchInput">
+        </body>
+
+        <br>
+        <br>
+        <!-- <select id="select_app_type">
            <option value="soda_real" selected>soda real</option>
            <option value="soda_beta">soda beta</option>
            <option value="tianyan_real">tianyan real</option>
            <option value="tianyan_beta">tainyan beta</option>
        </select> -->
-       <br>
-       <br>
-   </div>
-      <div class="content-main">
+        <br>
+        <br>
+    </div>
+    <div class="content-main">
 
-        </div>
-<!-- Bootstrap의 JavaScript 모달 플러그인을 사용하여 팝업창을 만든다.
+    </div>
+    <!-- Bootstrap의 JavaScript 모달 플러그인을 사용하여 팝업창을 만든다.
 https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참고 -->
 
-        <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Style Information</h5>
-        <!-- modal 구동 버튼 (trigger) -->
-        <button type="button" class="close cl" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    <div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Style Information</h5>
+                    <!-- modal 구동 버튼 (trigger) -->
+                    <button type="button" class="close cl" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-      <div class="modal-body filter_info">
-            <div id="modal-filter-id"></div>
-          <!-- div 요소는 "순수" 컨테이너로서 아무것도 표현하지 않는다, 대신 다른 요소 여럿을 묶어 class나 id 속성으로 꾸미기 쉽도록 한다.
-          아래의 qrcode2 modal style id 밑에 와야 함, 그래야 팝업 아래에 QR코드가 나온다.-->
-          <div class="qrcode2"></div>
-      </div>
-        <div class="modal-json">
+                <div class="modal-body filter_info">
+                    <div id="modal-filter-id"></div>
+                    <!-- div 요소는 "순수" 컨테이너로서 아무것도 표현하지 않는다, 대신 다른 요소 여럿을 묶어 class나 id 속성으로 꾸미기 쉽도록 한다.
+                        아래의 qrcode2 modal style id 밑에 와야 함, 그래야 팝업 아래에 QR코드가 나온다.-->
+                    <div class="qrcode2"></div>
+                    <div class="line"></div>
+                    <div id="modal-filter-id2"></div>
+                    <div class="qrcode3"></div>
+                </div>
+                <div class="modal-json">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary dl" id="dl">Camera QR Download</button>
+                    <button type="button" class="btn btn-primary dl2" id="dl2">Edit QR Download</button>
+                    <!-- <button type="button" class="btn btn-primary">json</button> -->
+                    <button type="button" class="btn btn-secondary modal-close cl" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-primary dl" id="dl">QR download</button>
-          <button type="button" class="btn btn-primary">json</button>
-        <button type="button" class="btn btn-secondary modal-close cl" data-dismiss="modal">Close</button>
-      </div>
     </div>
-  </div>
-</div>
 
 
-   </body>
-    <script>
-<!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
-        const filter_infos = {
-            main_url:"sodab://go",
-            app_type:"soda_beta",
-        }
-        const filter_json_info = {
+</body>
+<script>
+    <!-- const {info} 를 사용, main_url을 style_info로 접근할 수 있도록 한다.-->
+    const filter_infos = {
+        main_url: "sodab://go",
+        app_type: "soda_beta",
+    }
+    const filter_json_info = {
 
-        }
+    }
 
-<!--ajax_.py의 call style api -->
-    </script>
+</script>
 <script>
     var num = '';
-    $(function (){
+    $(function () {
 
         // $("#select_app_type").change(function () {
         //     style_infos.app_type = $(this).val();
@@ -179,101 +205,182 @@ https://getbootstrap.com/docs/4.0/components/modal/ 의 예제소스코드 참�
 
         call_filter_api();
         $(document) // api가 로딩이 되면
-        .on("click", ".cl" , function (){
-            $("canvas").remove(); // popup close했을 때 초기화되도록 한다. canvas(큐알코드) 삭제
-        })
+            .on("click", ".cl", function () {
+                $("canvas").remove(); // popup close했을 때 초기화되도록 한다. canvas(큐알코드) 삭제
+            })
 
-           // 다운로드 버튼 클릭
-        .on("click", ".dl", function (e){
+            // 다운로드 버튼 클릭
+            .on("click", ".dl", function (e) {
 
-            // canvas 지정
-            var can = $("canvas")[0];
-            // 이미지 링크 PNG로 생성
-            var QR = can.toDataURL('image/png');
-            // aTag 생성
-            var aTag = document.createElement("a");
-            console.log(num);
-           // 다운로드시 이름
-            aTag.download = num+'.png'
-            // 위에 링크 생성해준걸 등록
-            aTag.href = QR
-            // aTag을 클릭하여 다운로드
-            aTag.click();
-        })// 키보드 esc 버튼 눌렀을 때 초기화
-        .keyup(function (e){
-            if(e.keyCode == 27){
-                $("canvas").remove();
-            }
-            console.log(e.keyCode);
-        })
+                // canvas 지정
+                var can = $("canvas")[0];
+                // 이미지 링크 PNG로 생성
+                var QR = can.toDataURL('image/png');
+                // aTag 생성
+                var aTag = document.createElement("a");
+                console.log(num);
+                // 다운로드시 이름
+                aTag.download = num + '.png'
+                // 위에 링크 생성해준걸 등록
+                aTag.href = QR
+                // aTag을 클릭하여 다운로드
+                aTag.click();
+            })// 키보드 esc 버튼 눌렀을 때 초기화
+            .on("click", ".dl2", function (e) {
+
+                // canvas 지정
+                var can = $("canvas")[1];
+                // 이미지 링크 PNG로 생성
+                var QR = can.toDataURL('image/png');
+                // aTag 생성
+                var aTag = document.createElement("a");
+                console.log(num);
+                // 다운로드시 이름
+                aTag.download = num + '.png'
+                // 위에 링크 생성해준걸 등록
+                aTag.href = QR
+                // aTag을 클릭하여 다운로드
+                aTag.click();
+            })// 키보드 esc 버튼 눌렀을 때 초기화
+            .keyup(function (e) {
+                if (e.keyCode == 27) {
+                    $("canvas").remove();
+                }
+                console.log(e.keyCode);
+            })
     })
 
 
 
 
-    function click_filter_info(th)
-    {
+    function click_filter_info(th) {
         console.log($(th));
         $("#modal-filter-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
+        $("#modal-filter-id2").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
         var s_id = 'sodab://go?filterId=' + $(th).find(".filter-id").text();
+        var s_id2 = 'sodab://pick?tab=filter&filterId=' + $(th).find(".filter-id").text();
         var filter_json = $(th).find(".filter_json").clone()
+        var filter_json2 = $(th).find(".filter_json").clone()
         $("#modal-filter-id").append(`<div>${s_id}</div>`);
         $("#modal-filter-id").append(filter_json);
         num = $(th).find('.filter-id').text();
         console.log(num);
 
+        $("#modal-filter-id2").append(`<div>${s_id2}</div>`);
+        $("#modal-filter-id2").append(filter_json2);
 
 
 
 
-// s_id(Line 80)을 qr code로 생성
-$(".qrcode2").qrcode({
-        id:"qr",
-      render: "canvas",
-      width: 100,
-      height: 100,
-      text: (s_id)
 
-      });
+        // s_id(Line 80)을 qr code로 생성
+        $(".qrcode2").qrcode({
+            id: "qr",
+            render: "canvas",
+            width: 100,
+            height: 100,
+            text: (s_id)
+
+        });
+
+        $(".qrcode3").qrcode({
+            id: "qr",
+            render: "canvas",
+            width: 100,
+            height: 100,
+            text: (s_id2)
+
+        });
 
     }
 
-// append를 해주는 부분.(jQuery append with api call)
-// 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
-
-function call_filter_api() {
-
-    $.ajax({
-        url: "/ajax/api/filter?appType=soda_beta",
-        success: function (result) {
-            $(".content-main").empty();
-            // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
-            console.log(result.result); // result라는 객체로 보냈기 때문에 result로 결과가 온다.
-            // 처음에 그룹(카테고리)를 뽑고 있다.
-            for (var i = 0; i < result.result.groups.length; i++) {
-                const gid = result.result.groups[i].id;
-                const gname = result.result.groups[i].name;
-                let sub_html = ''
-                // 여기서부터는 하나의 그룹에, styleID 많이 가지고 있는 것 가지고 오려는 부분을 for문으로 돌린다.
-                // 여기서 체크할 것 : style들은 따로 오는데, 그 style들을 다시 조회하긴 해야 된다.
-                // 만약 A카테고리에 스타일이 30개, B카테고리에 스타일이 20개 이렇게 있다고 해도..그룹이 한꺼번에 오니까 그거에 대해서는 조회를 다 해야 된다.
+    function click_filter_menu(th) {
+        console.log($(th));
+        $("#modal-filter-id").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
+        $("#modal-filter-id2").empty(); // .empty()는 선택한 요소의 내용을 지운다. 내용만 지울 뿐 태그는 남아있다.
+        var gname = $(th).data("gname");
+        var gid = $(th).data("gid");
+        var s_id = 'sodab://go?filterId=' + gid;
+        var s_id2 = 'sodab://pick?tab=filter&filterId=' + gid;
 
 
-                for (var j = 0; j < result.result.groups[i].filterIds.length; j++) {
-                    for (var k = 0; k < result.result.filters.length; k++) {
+        $("#modal-filter-id").append(`<div>${s_id}</div>`);
+        $("#modal-filter-id").append(`<div>id = ${gid}</div>`);
+        $("#modal-filter-id").append(`<div>name = ${gname}</div>`);
+        num = gid;
 
-                        // 그래서 if로 그것들을 다 찾는다.
-                        if (result.result.groups[i].filterIds[j] === result.result.filters[k].id) {
-                            console.log(result.result.filters[k])
-                            const filter_id = result.result.filters[k].id;
-                            const filter_name = result.result.filters[k].name;
-                            const filter_thumb = result.result.cdnPrefix + result.result.filters[k].thumbnail;
-                            // 해당 파라미터 안에 값을 넣고, make url을 한다.
-                            filter_json_info[filter_id] = {"filter_id":filter_id, "filter_name":filter_name};
-                            // 그러고 나서 계속 이 html부분을 누적을 해 준다.
-                            // 이 작업이 끝나면 하나의 group에 있는 모든 styleID들을 다 찾은 것이다.
-                            //style_id과 style_name추가해서 검색 가능하게 해줌
-                            sub_html += `<div class="filter_block img c${filter_id} c${filter_name}" data-toggle="modal" data-target="#exampleModal" onclick="click_filter_info($(this))"><div class="filter-id">${filter_id}</div>
+        $("#modal-filter-id2").append(`<div>${s_id2}</div>`);
+        $("#modal-filter-id2").append(`<div>id = ${gid}</div>`);
+        $("#modal-filter-id2").append(`<div>name = ${gname}</div>`);
+
+
+
+
+
+        // s_id(Line 80)을 qr code로 생성
+        $(".qrcode2").qrcode({
+            id: "qr",
+            render: "canvas",
+            width: 100,
+            height: 100,
+            text: (s_id)
+
+        });
+
+        $(".qrcode3").qrcode({
+            id: "qr",
+            render: "canvas",
+            width: 100,
+            height: 100,
+            text: (s_id2)
+
+        });
+
+    }
+
+
+    // append를 해주는 부분.(jQuery append with api call)
+    // 아래의 부분은 결과 성공 call back 함수인데, request가 완료되었을 때, 시작하는 부분이다.
+
+    function call_filter_api() {
+
+        $.ajax({
+            url: "/ajax/api/filter?appType=soda_beta",
+            success: function (result) {
+                $(".content-main").empty();
+                // 통신이 성공적으로 이루어졌을 때 이 함수를 타게 된다.  TO-DO
+                console.log(result.result); // result라는 객체로 보냈기 때문에 result로 결과가 온다.
+                // 처음에 그룹(카테고리)를 뽑고 있다.
+                for (var i = 0; i < result.result.groups.length; i++) {
+                    const gid = result.result.groups[i].id;
+                    const gname = result.result.groups[i].name;
+                    let sub_html = ''
+                    // 여기서부터는 하나의 그룹에, styleID 많이 가지고 있는 것 가지고 오려는 부분을 for문으로 돌린다.
+                    // 여기서 체크할 것 : style들은 따로 오는데, 그 style들을 다시 조회하긴 해야 된다.
+                    // 만약 A카테고리에 스타일이 30개, B카테고리에 스타일이 20개 이렇게 있다고 해도..그룹이 한꺼번에 오니까 그거에 대해서는 조회를 다 해야 된다.
+
+
+                    for (var j = 0; j < result.result.groups[i].filterIds.length; j++) {
+                        for (var k = 0; k < result.result.filters.length; k++) {
+
+                            // 그래서 if로 그것들을 다 찾는다.
+                            if (result.result.groups[i].filterIds[j] === result.result.filters[k].id) {
+                                console.log(result.result.filters[k])
+                                const filter_id = result.result.filters[k].id;
+                                const filter_name = result.result.filters[k].name;
+                                const filter_thumb = result.result.cdnPrefix + result.result.filters[k].thumbnail;
+                                const filter_vip = result.result.filters[k].vipType;
+
+                                // 해당 파라미터 안에 값을 넣고, make url을 한다.
+                                filter_json_info[filter_id] = { "filter_id": filter_id, "filter_name": filter_name };
+                                // 그러고 나서 계속 이 html부분을 누적을 해 준다.
+                                // 이 작업이 끝나면 하나의 group에 있는 모든 styleID들을 다 찾은 것이다.
+                                //style_id과 style_name추가해서 검색 가능하게 해줌
+                                sub_html += `<div class="filter_block img c${filter_id} c${filter_name}" data-toggle="modal" data-target="#exampleModal" onclick="click_filter_info($(this))">
+                                    <div class="filter-id-wrap">
+                                    <p class="filter-id">${filter_id}</p>
+                                    <p class="VIP">${filter_vip ? "VIP" : ""}</p>
+                                    </div>
 
 
                                     <img src="${filter_thumb}" onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'"></img>
@@ -289,81 +396,82 @@ function call_filter_api() {
 
                                     </div>`;
 
+                            }
                         }
+
                     }
 
-                }
 
-
-// image thumbnail 가운데 오도록 함,
-// https://wiki.navercorp.com/pages/viewpage.action?pageId=586662251
-// API Category List : 전체 카테고리 리스트를 내려준다.
-//filter.id, filter.name, filter.thumbnail 값을 읽어와서 화면에 출력하면 된다.
-//Thumbnail Url은: result.cdnPrefix + filter.thumbnail 로 사용한다.
-//filter.thumbnail 이 없는 케이스도 있으니 예외 처리가 필요하다.
+                    // image thumbnail 가운데 오도록 함,
+                    // https://wiki.navercorp.com/pages/viewpage.action?pageId=586662251
+                    // API Category List : 전체 카테고리 리스트를 내려준다.
+                    //filter.id, filter.name, filter.thumbnail 값을 읽어와서 화면에 출력하면 된다.
+                    //Thumbnail Url은: result.cdnPrefix + filter.thumbnail 로 사용한다.
+                    //filter.thumbnail 이 없는 케이스도 있으니 예외 처리가 필요하다.
 
 
 
-// console.log(sub_html)
-// 자바스크립트에서 중괄호는 객체를 의미 , $ajax{}도 마찬가지이다.
-// style category를 group으로 나눈다.
+                    // console.log(sub_html)
+                    // 자바스크립트에서 중괄호는 객체를 의미 , $ajax{}도 마찬가지이다.
+                    // style category를 group으로 나눈다.
 
 
-                const html = `
+                    const html = `
             <div className="contentsListContainer" class="c_box">
-                <div className="categoryNameColumn" class="c_name">
+                <div className="categoryNameColumn" class="c_name" data-gid="${gid}" data-gname="${gname}" data-toggle="modal" data-target="#exampleModal" onclick="click_filter_menu($(this))">
                     <h2>${gid}</h2> <p>${gname}</p>
                 </div>
                   <div class="filter_group">
                     ${sub_html}
                     </div>
             </div>`
-                $(".content-main").append(html);
-            }
-
-            // click했을 때 active를 준다.
-            // jQuery - selector(선택자) 개념 : p170
-            // 클래스 선택자 : $(".클래스명")
-            // hasClass : 클래스 존재 여부 확인
-            // removeClass : 클래스 삭제
-
-            $(".filter_block").click(function () {
-                if ($(this).hasClass('clicked')) {
-                    $(this).removeClass('clicked');
-                    //styleArgs.paras.styleId = ''
-                    // 시간이 오래 걸리기 때문에 style contents list들을 쭉 먼저 받아오고 나서, 이 부분을 해야한다.
-                    // 다 불러오고 나서, contents 클릭시에 선택된다.
-
-                } else {
-
-                    $(".filter_block").removeClass('clicked');
-                    $(this).addClass('clicked');
-                    var a = $(this).find('div')[0];
-                    //styleArgs.paras.styleId = $(a).text()
+                    $(".content-main").append(html);
                 }
-            });
-        },
-        error: function (e) {
-            console.error(e);
-        }
+
+                // click했을 때 active를 준다.
+                // jQuery - selector(선택자) 개념 : p170
+                // 클래스 선택자 : $(".클래스명")
+                // hasClass : 클래스 존재 여부 확인
+                // removeClass : 클래스 삭제
+
+                $(".filter_block").click(function () {
+                    if ($(this).hasClass('clicked')) {
+                        $(this).removeClass('clicked');
+                        //styleArgs.paras.styleId = ''
+                        // 시간이 오래 걸리기 때문에 style contents list들을 쭉 먼저 받아오고 나서, 이 부분을 해야한다.
+                        // 다 불러오고 나서, contents 클릭시에 선택된다.
+
+                    } else {
+
+                        $(".filter_block").removeClass('clicked');
+                        $(this).addClass('clicked');
+                        var a = $(this).find('div')[0];
+                        //styleArgs.paras.styleId = $(a).text()
+                    }
+                });
+            },
+            error: function (e) {
+                console.error(e);
+            }
+        })
+    }
+    // 그러면 이제, group으로 묶을 곳에다가 더해준다.
+    // 내 그룹이 나오고 > 스타일id들이 쭉 나온다.
+
+
+
+    // 키를 누를때마다 검색을 위한 event
+    $(function () {
+        $(document)
+            .on("keyup", function (e) {
+                var c = $("#searchInput").val();
+                $(".filter_block").removeClass("chk");
+                $(".c" + c).addClass("chk");
+            })
+
+
     })
-}
-// 그러면 이제, group으로 묶을 곳에다가 더해준다.
-// 내 그룹이 나오고 > 스타일id들이 쭉 나온다.
-
-
-
-   // 키를 누를때마다 검색을 위한 event
-   $(function(){
-      $(document)
-      .on("keyup"  , function(e){
-         var c = $("#searchInput").val();
-        $(".filter_block").removeClass("chk");
-        $(".c"+c).addClass("chk");
-      })
-
-
-   })
 
 </script>
+
 </html>
